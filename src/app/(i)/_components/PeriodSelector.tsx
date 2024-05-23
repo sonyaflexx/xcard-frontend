@@ -3,7 +3,7 @@ import { useState } from 'react';
 function PeriodSelector() {
   const [selectedOption, setSelectedOption] = useState('lastMonth');
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setSelectedOption(event.target.value);
   };
 

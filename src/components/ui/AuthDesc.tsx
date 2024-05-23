@@ -1,4 +1,6 @@
-export default function AuthDesc({children}) {
+import { ReactNode } from "react";
+
+export default function AuthDesc({children} : {children: ReactNode}) {
     return (
         <div className="flex-1 flex flex-col gap-8 pl-8 border-l-2 dark:border-gray-400">
             <div className="w-12 h-12 rounded-full bg-green-20 dark:bg-green-300 text-green-50 bg-opacity-30 dark:bg-opacity-30 flex items-center justify-center">

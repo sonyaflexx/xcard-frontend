@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/modal';
 import GreenButton from '../inputs/buttons/GreenButton';
 import { smileys } from '@/components/smileys'; 
+import { Wallet } from 'ethers';
 
 const colors = ['rgb(61, 61, 77)', 'rgb(228, 144, 144)', 'rgb(227, 177, 103)', 'rgb(145, 188, 118)', 'rgb(103, 190, 169)', 'rgb(85, 169, 217)', 'rgb(171, 125, 207)', 'rgb(223, 155, 208)'];
 
-const AvatarModal = ({ isOpen, onClose, onSelect, wallet }) => {
+const AvatarModal = ({ isOpen, onClose, onSelect, wallet } : { isOpen: any, onClose: any, onSelect: any, wallet: any }) => {
     const [selectedSmiley, setSelectedSmiley] = useState(wallet.avatar);
     const [selectedColor, setSelectedColor] = useState(wallet.avatarBgColor);
 

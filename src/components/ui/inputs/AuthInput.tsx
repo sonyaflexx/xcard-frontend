@@ -59,4 +59,6 @@ const AuthInput = forwardRef<
     )
 })
 
+AuthInput.displayName = 'AuthInput';
+
 export default AuthInput;

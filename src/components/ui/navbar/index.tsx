@@ -13,7 +13,7 @@ import { useDisclosure } from "@nextui-org/react";
 import EditWalletModal from "../modals/EditWalletModal";
 
 export default function Navbar({ activePage }: { activePage: string }) {
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     
@@ -27,19 +27,19 @@ export default function Navbar({ activePage }: { activePage: string }) {
     };
     
     useEffect(() => {
-      function handleClickOutside(event) {
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsDropdownVisible(false);
-          }
+        function handleClickOutside(event: MouseEvent): void {
+            const target = event.target as Node;
+            if (dropdownRef.current && !dropdownRef.current.contains(target)) {
+                setIsDropdownVisible(false);
+            }
         }
-        
+    
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
-          document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
-      }, [dropdownRef]);
-      
-
+    }, []);
+    
     const [isOpenStates, setIsOpenStates] = useState<{ [key: string]: boolean }>({});
 
     const handleOpenChange = (walletId: number, isOpen: boolean) => {

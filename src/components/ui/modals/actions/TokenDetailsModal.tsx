@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import AddressInput from "../../inputs/AddressInput";
 import GreenButton from "../../inputs/buttons/GreenButton";
 
-const TokenDetailsModal = ({ isOpen, onClose, onBack, token }) => {
+const TokenDetailsModal = ({ isOpen, onClose, onBack, token }: { isOpen: any, onClose: any, onBack: any, token: any }) => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
     return (

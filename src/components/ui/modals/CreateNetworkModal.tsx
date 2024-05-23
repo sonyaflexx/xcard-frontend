@@ -11,7 +11,7 @@ import GreenButton from "../inputs/buttons/GreenButton";
 const CreateNetworkModal = ({ isOpen, onClose, onOpenPreviousModal }: { isOpen: boolean, onClose: () => void, onOpenPreviousModal: () => void }) => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const { name, urlRpc} = watch();
-    const [rpcError, setRpcError] = useState(null);
+    const [rpcError, setRpcError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleCreateNetwork = async (data: any) => {
@@ -27,7 +27,7 @@ const CreateNetworkModal = ({ isOpen, onClose, onOpenPreviousModal }: { isOpen: 
     };
 
     useEffect(() => {
-        let timeoutId;
+        let timeoutId: any;
         
         const validateRpc = async () => {
             setIsLoading(true);

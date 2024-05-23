@@ -1,8 +1,9 @@
 import { useAppSelector } from "@/store/hooks";
 import MoneyChange from "./MoneyChange";
 import { RootState } from "@/store/store";
+import { Token } from "@/types";
 
-export default function TokenItem({ token }) {
+export default function TokenItem({ token }: { token: Token }) {
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
     const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
     const activeWallet = wallets.find(wallet => wallet.id === activeWalletId);

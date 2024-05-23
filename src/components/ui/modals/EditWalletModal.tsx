@@ -27,7 +27,16 @@ const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen
     const [selectedColor, setSelectedColor] = useState(wallet?.avatarBgColor);
 
     const onSubmit = (data: any) => {
-        const updatedWallet = { ...wallet, name: data.name || wallet?.name, avatarBgColor: selectedColor, avatar: selectedSmiley };
+        const updatedWallet: Wallet = {
+            name: data.name || wallet?.name,
+            avatarBgColor: selectedColor || '',
+            avatar: selectedSmiley || '',
+            id: wallet?.id || 0,
+            address: wallet?.address || '',
+            tokens: wallet?.tokens,
+            transactions: wallet?.transactions
+        };
+          
         dispatch(updateWallet(updatedWallet));
         onClose();
     };
