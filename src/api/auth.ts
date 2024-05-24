@@ -6,7 +6,7 @@ interface Token {
 
 //
 const instance = axios.create({
-  baseURL: '147.45.111.44:8000',
+  baseURL: 'http://147.45.111.44:8000',
   headers: {
     'Content-Type': 'application/json',
   },
