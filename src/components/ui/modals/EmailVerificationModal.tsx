@@ -11,7 +11,7 @@ const EmailVerificationModal = ({ isOpen, onOpenChange, handleVerification }: { 
       <>
         <Modal hideCloseButton isOpen={isOpen} onOpenChange={onOpenChange}>
             <form onSubmit={handleSubmit(handleVerification)}>
-            <ModalContent className="dark:bg-gray-500 items-center flex gap-5 py-6">
+            <ModalContent className="max-md:rounded-none sm:max-w-full max-md:m-0 dark:bg-gray-500 items-center flex gap-5 py-6 max-md:size-full sm:mx-0">
                 {(onClose) => (
                 <>
                     <ModalHeader className="flex flex-col items-center gap-4 py-0">

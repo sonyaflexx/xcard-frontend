@@ -6,7 +6,7 @@ import GrayButton from "@/components/ui/inputs/buttons/GrayButton";
 const AuthLayout = ({ children }: { children: any }) => {
   return (
     <>
-      <div className="h-auto mt-16 mx-auto flex flex-col items-start gap-8">
+      <div className="h-auto md:mt-16 mx-auto flex flex-col items-start gap-8 px-6 pt-4 pb-24 w-full max-w-[788px]">
         <div className='-ml-3'>
           <GrayButton>
             <Link href={"/"}>
@@ -14,7 +14,7 @@ const AuthLayout = ({ children }: { children: any }) => {
             </Link>
           </GrayButton>
         </div>
-        <div className='flex gap-20'>
+        <div className='flex gap-20 max-md:flex-col w-full'>
           {children}
         </div>
       </div>

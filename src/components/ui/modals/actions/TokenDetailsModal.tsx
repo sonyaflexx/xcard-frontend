@@ -10,7 +10,7 @@ const TokenDetailsModal = ({ isOpen, onClose, onBack, token }: { isOpen: any, on
     return (
         <Modal hideCloseButton isOpen={isOpen} onOpenChange={onClose}>
         <form>
-            <ModalContent className="dark:bg-gray-600 rounded-3xl max-h-[90vh] max-w-[420px]">
+            <ModalContent className="sm:mx-0 sm:max-w-full max-md:rounded-none max-md:m-0 max-md:size-full dark:bg-gray-600 rounded-3xl md:max-h-[90vh] md:max-w-[420px]">
                 <>
                     <ModalHeader className="flex justify-between items-center border-b-2 dark:border-gray-400">
                         <div className="flex gap-3 items-center">

@@ -56,12 +56,12 @@ export default function Card() {
 
     return (
         <div>
-            <div key={card.id} className="pt-10 flex flex-col gap-14 h-full">
-                <div className="flex gap-16">
+            <div key={card.id} className="pt-10 flex flex-col gap-14 max-xl:gap-10 h-full px-4 mb-12">
+                <div className="flex gap-16 flex-wrap max-xl:flex-col max-xl:gap-10 justify-center">
                     <div className="flex flex-col gap-3">
-                        <div className="bg-[url('/card.png')] bg-no-repeat w-[388px] h-[214px] relative text-white">
-                            <span className="absolute font-medium text-2xl top-[90px] left-7">{formatMoney(card.balance)}</span>
-                            <span className="absolute text-lg font-medium right-7 bottom-5">{truncateString(card.id.toString(), 0, 4, '**** ')}</span>
+                        <div className="bg-[url('/card.png')] bg-no-repeat bg-contain max-sm:w-full w-[388px] h-[214px] relative text-white">
+                            <span className="absolute font-medium text-2xl top-[90px] max-[410px]:top-[80px] left-7">{formatMoney(card.balance)}</span>
+                            <span className="absolute text-lg font-medium right-7 bottom-5 max-[410px]:bottom-8 max-[377px]:bottom-12">{truncateString(card.id.toString(), 0, 4, '**** ')}</span>
                         </div>
                         <div className="flex justify-between pl-2">
                             <div className="flex gap-5">
@@ -79,13 +79,13 @@ export default function Card() {
                             </div>
                         </div>
                     </div>
-                    <div className="w-[1px] h-auto bg-gray-200 dark:bg-gray-400"></div>
-                    <div className="w-96 flex flex-col justify-between py-2">
+                    {/* <div className="w-[1px] h-auto bg-gray-200 dark:bg-gray-400"></div> */}
+                    <div className="xl:w-96 w-full flex flex-col justify-between py-2">
                         <div className="flex justify-between">
                             <h2 className="font-medium text-lg">Balance</h2>
                             <PeriodSelector />
                         </div>
-                        <div className="flex flex-col text-gray-300 -mt-8 gap-3">
+                        <div className="flex flex-col text-gray-300 xl:-mt-8 my-4 gap-3">
                             <span className="text-4xl font-bold">{formatMoney(card.balance)}</span>
                             <span className="">{truncateString(card.id.toString(), 0, 4, '**** **** **** ')}</span>
                         </div>

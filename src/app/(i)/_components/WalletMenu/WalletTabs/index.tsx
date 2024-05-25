@@ -18,11 +18,11 @@ const WalletTabs = () => {
 
   return (
     <div>
-      <ul className='flex border-b-2 dark:border-gray-500 gap-6 font-medium text-sm'>
-        <li className={`py-3 px-1 text-gray-300 ${activeTab === 0 && 'border-green-50 border-b-2 dark:text-white text-gray-600'}`}>
+      <ul className='max-md:sticky top-12 max-md:-ml-4 max-md:!w-screen flex border-b-2 dark:border-gray-500 gap-6 font-medium text-sm'>
+        <li className={`py-3 px-1 max-md:px-12 max-sm:px-8 text-gray-300 ${activeTab === 0 && 'border-green-50 border-b-3 dark:text-white text-gray-600'}`}>
           <button onClick={() => handleTabClick(0)}>TOKENS</button>
         </li>
-        <li className={`py-3 px-1 text-gray-300 ${activeTab === 1 && 'border-green-50 border-b-2 dark:text-white text-gray-600'}`}>
+        <li className={`py-3 px-1 max-md:px-12 max-sm:px-8 text-gray-300 ${activeTab === 1 && 'border-green-50 border-b-3 dark:text-white text-gray-600'}`}>
           <button onClick={() => handleTabClick(1)}>HISTORY</button>
         </li>
       </ul>
@@ -38,7 +38,7 @@ const WalletTabs = () => {
               <div className='flex justify-between'>
                   <h2 className='text-lg font-semibold'>History</h2>
               </div>
-              <div className="flex flex-col self-center items-center gap-4">
+              <div className="flex flex-col self-center items-center gap-4 max-md:mb-48">
                   <div className="text-6xl p-2">🕐</div>
                   <h2 className="text-base leading-none font-medium">No Histories</h2>
                   <p className="text-gray-300 text-sm leading-none">Transaction histories can be viewed here.</p>

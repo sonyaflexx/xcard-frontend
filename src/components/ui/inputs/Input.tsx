@@ -31,6 +31,7 @@ const Input = forwardRef<
                 text-sm
                 w-full 
                 rounded-xl 
+                bg-gray-50
                 dark:bg-gray-500
                 placeholder:text-gray-300
                 outline-none

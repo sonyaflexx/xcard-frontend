@@ -16,7 +16,7 @@ const RemoveWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOp
       <>
         <Modal hideCloseButton isOpen={isOpen} onOpenChange={onOpenChange}>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalContent className="dark:bg-gray-500 items-center flex gap-5 py-6">
+            <ModalContent className="dark:bg-gray-500 items-center flex gap-5 py-6 max-md:rounded-none">
                 {(onClose) => (
                 <>
                     <ModalHeader className="flex flex-col items-center gap-4 py-0">

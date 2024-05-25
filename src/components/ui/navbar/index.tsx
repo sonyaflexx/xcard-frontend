@@ -50,10 +50,10 @@ export default function Navbar({ activePage }: { activePage: string }) {
     };
 
     return (
-        <nav className="flex flex-col text-sm h-screen bg-gray-50 dark:bg-gray-500 w-64 pt-3 px-4 pb-5 tracking-tight sticky top-0">
-            <div className="flex flex-col gap-3 h-full">
+        <nav className="max-md:bottom-0 max-md:fixed max-md:h-12 max-md:w-full flex flex-col text-sm h-screen bg-gray-50 dark:bg-gray-600 max-md:border-t dark:border-gray-400 md:dark:bg-gray-500 w-64 md:pt-3 md:px-4 md:pb-5 tracking-tight sticky md:top-0">
+            <div className="flex max-md:items-center max-md:justify-center md:flex-col gap-3 h-full">
                 {wallets && wallets.length > 0 ? (
-                    <div className="relative flex">
+                    <div className="max-md:hidden relative flex">
                         <GrayButton className={`rounded-xl pt-1 pb-1 pl-1 pr-2 w-full ${isDropdownVisible && 'dark:bg-gray-350 bg-gray-20 pointer-events-none'}`} onClick={toggleDropdown}>
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-3">
@@ -157,7 +157,7 @@ export default function Navbar({ activePage }: { activePage: string }) {
                 ) : (
                     <Link
                         href="/auth"
-                        className="truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
+                        className="max-md:hidden truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
                     >
                         Create Wallet
                     </Link>

@@ -51,7 +51,7 @@ const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen
         <>
             <Modal hideCloseButton isOpen={isOpen} onClose={onClose}>
                 <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-                    <ModalContent className="dark:bg-gray-600 rounded-3xl max-h-[90vh] max-w-[420px]">
+                    <ModalContent className="sm:mx-0 sm:max-w-full max-md:rounded-none max-md:m-0 dark:bg-gray-600 rounded-3xl md:max-h-[90vh] md:max-w-[420px] max-md:size-full">
                         <>
                             <ModalHeader className="flex justify-between items-center border-b-2 dark:border-gray-400">
                                 <div className="flex gap-3 items-center">
@@ -79,13 +79,11 @@ const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen
                                         placeholder={wallet?.name}
                                         register={register("name")}
                                         className="px-0"
-                                        classNameInput="py-2 px-3 text-base leading-6"
+                                        classNameInput="py-3 px-3 text-lg leading-6"
                                     />
                                 </div>
+                                <GreenButton type="submit" text="Done" size="sm py-1 w-full mt-2" />
                                 </ModalBody>
-                            <ModalFooter className="p-6 pt-0">
-                                <GreenButton type="submit" text="Done" size="sm py-1 w-full" />
-                            </ModalFooter>
                         </>
                     </ModalContent>
                 </form>

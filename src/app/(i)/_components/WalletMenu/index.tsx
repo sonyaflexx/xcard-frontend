@@ -43,8 +43,8 @@ export default function WalletMenu() {
     }
     
     return (
-        <div className="max-w-5xl w-full px-8 mt-5 flex flex-col gap-8">
-            <div className="flex justify-between"> {/* TODO header */}
+        <div className="max-w-5xl w-full px-4 md:px-8 mt-3 md:mt-5 flex flex-col gap-8">
+            <div className="flex max-md:flex-col max-md:gap-8 justify-between"> {/* TODO header */}
                 <div className="flex flex-col gap-1"> {/* TODO Часть с деньгами слева */}
                     <div className="text-gray-300 flex -ml-2 font-medium"> {/* TODO Действия */}
                         <button onClick={handleCopy} className="text-xs flex dark:hover:bg-gray-400 hover:bg-gray-50 bg-opacity-60 py-1 px-2 rounded-full gap-2">
@@ -72,19 +72,19 @@ export default function WalletMenu() {
                     </div>
                 </div> 
                 <div className="flex items-center"> {/* TODO Действия */}
-                    <ul className="flex items-center gap-10">
+                    <ul className="flex items-center gap-10 max-md:justify-around w-full">
                         <li>
-                            <ActionButton label={'Send'} onClick={openSend}>
+                            <ActionButton className="max-md:p-3" label={'Send'} onClick={openSend}>
                                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24"  role="img"><path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.126A59.768 59.768 0 0 1 21.485 12 59.77 59.77 0 0 1 3.27 20.876L5.999 12zm0 0h7.5"></path></svg>
                             </ActionButton>
                         </li>
                         <li>
-                            <ActionButton label={'Receive'} onClick={openReceive}>
+                            <ActionButton className="max-md:p-3" label={'Receive'} onClick={openReceive}>
                                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24" role="img"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5zm0 9.75c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5zm9.75-9.75c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5z"></path><path strokeLinecap="round" strokeLinejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zm0 9.75h.75v.75h-.75v-.75zm9.75-9.75h.75v.75h-.75v-.75zm-3 6.75h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm6-6h.75v.75h-.75v-.75zm0 6h.75v.75h-.75v-.75zm-3-3h.75v.75h-.75v-.75z"></path></svg>
                             </ActionButton>
                         </li>
                         {/* <li>
-                            <ActionButton label={'Swap'} >
+                            <ActionButton className="max-md:p-3" label={'Swap'} >
                                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24"  role="img"><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"></path></svg>
                             </ActionButton>
                         </li> */}
@@ -92,7 +92,7 @@ export default function WalletMenu() {
                             <Dropdown className="dark:bg-gray-475">
                                     <DropdownTrigger className="outline-none" aria-label="More">
                                         <button className="flex flex-col gap-2 justify-center items-center">
-                                            <div className="p-2 dark:bg-gray-475 bg-gray-50 hover:bg-gray-20 hover:bg-opacity-50 rounded-full dark:hover:bg-gray-420 dark:border-gray-400 text-gray-350 dark:text-gray-20" style={{borderWidth: '1px'}}>
+                                            <div className="max-md:p-3 p-2 dark:bg-gray-475 bg-gray-50 hover:bg-gray-20 hover:bg-opacity-50 rounded-full dark:hover:bg-gray-420 dark:border-gray-400 text-gray-350 dark:text-gray-20" style={{borderWidth: '1px'}}>
                                                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24"  role="img"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5zm0 6a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5zm0 6a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5z"></path></svg>
                                             </div>
                                             <span className="text-xs font-medium">More</span>

@@ -40,7 +40,7 @@ const NetworksModal = ({ isOpen, onClose, onOpenNewModal }: { isOpen: boolean, o
 
     return (
         <Modal hideCloseButton isOpen={isOpen} onOpenChange={onClose}>
-            <ModalContent className="dark:bg-gray-600 rounded-3xl max-h-[90vh] h-[560px] max-w-[420px]">
+            <ModalContent className="sm:max-w-full max-md:rounded-none max-md:m-0 dark:bg-gray-600 rounded-3xl md:max-h-[90vh] h-[560px] md:max-w-[420px] max-md:size-full max-md:max-w-full sm:mx-0">
                 <>
                     <ModalHeader className="flex justify-between items-center border-b-2 dark:border-gray-400">
                         <h1>Chains</h1>

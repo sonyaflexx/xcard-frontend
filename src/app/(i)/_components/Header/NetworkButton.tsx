@@ -35,20 +35,20 @@ export default function NetworkButton() {
 
     return (
         <>
-            <GrayButton onClick={() => setIsNetworkModalOpen(true)}>
-                <div className='flex items-center gap-2'>
+            <GrayButton className='max-md:hover:dark:bg-gray-600' onClick={() => setIsNetworkModalOpen(true)}>
+                <div className='flex items-center gap-2 max-md:p-1 max-md:border border-gray-200 bg-gray-50 dark:border-gray-400 max-md:rounded-full max-md:dark:bg-gray-475'>
                     {activeNetwork ? (
                             <>
-                                <img src={activeNetwork.logo} alt="" width={24} height={24} className='rounded-full'/>
-                                <span className='text-sm dark:text-gray-50 font-medium leading-none'>{activeNetwork.name}</span>
+                                <img src={activeNetwork.logo} alt="" width={24} height={24} className='pl-[1.1px] rounded-full'/>
+                                <span className='max-md:hidden text-sm dark:text-gray-50 font-medium leading-none'>{activeNetwork.name}</span>
                             </>
                         ) : (
                             <div className='animate-pulse flex items-center gap-1'>
                                 <div className='w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-300'></div>
-                                <div className='w-16 h-4 rounded bg-gray-200 dark:bg-gray-300'></div>
+                                <div className='max-md:hidden w-16 h-4 rounded bg-gray-200 dark:bg-gray-300'></div>
                             </div>
                         )}
-                    <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.168l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06z" clipRule="evenodd"></path></svg>
+                    <svg className='max-md:hidden' viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.168l3.71-3.938a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06z" clipRule="evenodd"></path></svg>
                 </div>
             </GrayButton>
             <NetworksModal

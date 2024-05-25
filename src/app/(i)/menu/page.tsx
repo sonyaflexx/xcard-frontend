@@ -6,7 +6,7 @@ import ThemeSwitcher from "./_components/ThemeSwitcher"
 
 export default function Menu() {
     return (
-        <div className="w-full flex flex-col items-center gap-6 py-10">
+        <div className="w-full flex flex-col items-center gap-6 py-10 max-md:px-4 max-md:mb-8">
             <MenuList>
                 <MenuItem>
                     <ItemInfo>

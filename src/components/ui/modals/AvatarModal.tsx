@@ -19,7 +19,7 @@ const AvatarModal = ({ isOpen, onClose, onSelect, wallet } : { isOpen: any, onCl
 
     return (
         <Modal hideCloseButton isOpen={isOpen} onClose={onClose}>
-            <ModalContent className="dark:bg-gray-600 rounded-3xl max-w-[420px]">
+            <ModalContent className="max-md:rounded-none sm:max-w-full max-md:m-0 dark:bg-gray-600 rounded-3xl max-w-[420px] ">
                 <ModalHeader>
                     <div className='flex items-center justify-between w-full'>
                         <button type="button" className="flex items-center justify-center border-2 dark:border-gray-400 dark:bg-gray-420 p-1 rounded-full">
