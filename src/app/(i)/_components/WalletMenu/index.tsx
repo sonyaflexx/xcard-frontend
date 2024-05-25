@@ -14,11 +14,15 @@ import { useState } from "react"
 import TokenDetailsModal from "@/components/ui/modals/actions/TokenDetailsModal"
 import { showNotification } from "@/store/reducers/NotificationsSlice"
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
+import BuyCryptoModal from "@/components/ui/modals/BuyCryptoModal"
+import SellCryptoModal from "@/components/ui/modals/SellCryptoModal"
 
 export default function WalletMenu() {
     const { isOpen: isSendOpen, onOpen: openSend, onOpenChange: onSendOpenChange, onClose: closeSend } = useDisclosure();
     const { isOpen: isReceiveOpen, onOpen: openReceive, onOpenChange: onReceiveOpenChange, onClose: closeReceive } = useDisclosure();
     const { isOpen: isTokenDetailsOpen, onOpen: openTokenDetails, onOpenChange: onTokenDetailsOpenChange, onClose: closeTokenDetails } = useDisclosure();
+    const { isOpen: isBuyCryptoOpen, onOpen: openBuyCrypto, onOpenChange: onBuyCryptoOpenChange, onClose: closeBuyCrypto } = useDisclosure();
+    const { isOpen: isSellCryptoOpen, onOpen: openSellCrypto, onOpenChange: onSellCryptoOpenChange, onClose: closeSellCrypto } = useDisclosure();
     const dispatch = useAppDispatch();
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
     const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
@@ -100,13 +104,13 @@ export default function WalletMenu() {
                                     </DropdownTrigger>
                                     <DropdownMenu variant="flat">
                                         <DropdownItem key="buy" className="hover:border-none dark:text-white hover:dark:text-white dark:hover:bg-gray-400 focus:outline-none" aria-label="Buy Crypto">
-                                            <div className="flex justify-between items-center outline-none">
+                                            <div onClick={openBuyCrypto} className="flex justify-between items-center outline-none">
                                                 <span>Buy Crypto</span>
                                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5z"></path></svg>
                                             </div>
                                         </DropdownItem>
                                         <DropdownItem key="sell" className="dark:hover:bg-gray-400" aria-label="Sell Crypto">
-                                            <div className="flex justify-between items-center outline-none">
+                                            <div onClick={openSellCrypto} className="flex justify-between items-center outline-none">
                                                 <span>Sell Crypto</span>
                                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path fillRule="evenodd" d="M1 4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4zm12 4a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM4 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm13-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM1.75 14.5a.75.75 0 0 0 0 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 0 0-1.5 0v.784a.272.272 0 0 1-.35.25A49.043 49.043 0 0 0 1.75 14.5z" clipRule="evenodd"></path></svg>
                                             </div>
@@ -118,7 +122,7 @@ export default function WalletMenu() {
                                             </div>
                                         </DropdownItem>
                                         <DropdownItem key="copy" className="dark:hover:bg-gray-400" aria-label="Copy Address">
-                                            <div className="flex justify-between items-center outline-none">
+                                            <div onClick={handleCopy} className="flex justify-between items-center outline-none">
                                                 <span>Copy Address</span>
                                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path d="M2 4.25A2.25 2.25 0 0 1 4.25 2h6.5A2.25 2.25 0 0 1 13 4.25V5.5H9.25A3.75 3.75 0 0 0 5.5 9.25V13H4.25A2.25 2.25 0 0 1 2 10.75v-6.5z"></path><path d="M9.25 7A2.25 2.25 0 0 0 7 9.25v6.5A2.25 2.25 0 0 0 9.25 18h6.5A2.25 2.25 0 0 0 18 15.75v-6.5A2.25 2.25 0 0 0 15.75 7h-6.5z"></path></svg>
                                             </div>
@@ -138,6 +142,8 @@ export default function WalletMenu() {
                         <TokenDetailsModal isOpen={isTokenDetailsOpen} onClose={closeTokenDetails} token={selectedToken} onBack={handleSendBack} />
                     )}
                     <ReceiveTokensModal isOpen={isReceiveOpen} onClose={closeReceive} onOpenChange={onReceiveOpenChange} />
+                    <BuyCryptoModal isOpen={isBuyCryptoOpen} onClose={closeBuyCrypto} onOpenChange={onBuyCryptoOpenChange} />
+                    <SellCryptoModal isOpen={isSellCryptoOpen} onClose={closeSellCrypto} onOpenChange={onSellCryptoOpenChange} />
                 </div>
             </div>
             <WalletTabs />

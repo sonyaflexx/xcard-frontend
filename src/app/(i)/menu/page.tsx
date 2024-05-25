@@ -1,14 +1,17 @@
+'use client'
+
 import MenuList from "./_components/MenuList"
 import MenuItem from "./_components/MenuItem"
 import ItemInfo from "./_components/ItemInfo"
 import ItemAction from "./_components/ItemAction"
 import ThemeSwitcher from "./_components/ThemeSwitcher"
+import { logout } from "@/api/auth"
 
 export default function Menu() {
     return (
         <div className="w-full flex flex-col items-center gap-6 py-10 max-md:px-4 max-md:mb-8">
             <MenuList>
-                <MenuItem>
+                <MenuItem onClick={logout}>
                     <ItemInfo>
                         <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24" role="img"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25z"></path></svg>
                         <span>Lock Now</span>

@@ -36,7 +36,7 @@ export default function NetworkButton() {
     return (
         <>
             <GrayButton className='max-md:hover:dark:bg-gray-600' onClick={() => setIsNetworkModalOpen(true)}>
-                <div className='flex items-center gap-2 max-md:p-1 max-md:border border-gray-200 bg-gray-50 dark:border-gray-400 max-md:rounded-full max-md:dark:bg-gray-475'>
+                <div className='flex items-center gap-2 max-md:p-1 max-md:border border-gray-200 max-md:bg-gray-50 dark:border-gray-400 max-md:rounded-full max-md:dark:bg-gray-475'>
                     {activeNetwork ? (
                             <>
                                 <img src={activeNetwork.logo} alt="" width={24} height={24} className='pl-[1.1px] rounded-full'/>

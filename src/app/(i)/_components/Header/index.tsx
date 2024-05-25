@@ -11,6 +11,7 @@ import { useDisclosure } from "@nextui-org/react";
 import EditWalletModal from "@/components/ui/modals/EditWalletModal";
 import GrayButton from "@/components/ui/inputs/buttons/GrayButton";
 import NetworkButton from "./NetworkButton";
+import { logout } from "@/api/auth";
 
 export default function Header({ activePage }: { activePage: string }) {
     let title = '';
@@ -175,7 +176,7 @@ export default function Header({ activePage }: { activePage: string }) {
                             </div>
                         </DropdownItem>
                         <DropdownItem key="sell" className="dark:hover:bg-gray-400" aria-label="Sell Crypto">
-                            <div className="flex justify-between items-center outline-none">
+                            <div onClick={logout} className="flex justify-between items-center outline-none">
                                 <span>Lock Now</span>
                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path fillRule="evenodd" d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1zm3 8V5.5a3 3 0 1 0-6 0V9h6z" clipRule="evenodd"></path></svg>
                             </div>

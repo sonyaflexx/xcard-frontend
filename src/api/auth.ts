@@ -63,6 +63,7 @@ export const verificateCode = async (credentials: { email: string; confirmation_
 
 
 export const logout = (): void => {
+  console.log(123)
   localStorage.removeItem('access_token');
 };
 
