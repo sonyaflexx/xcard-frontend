@@ -10,7 +10,7 @@ import { Wallet } from "@/types";
 import AvatarModal from './AvatarModal';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { RootState } from '@/store/store';
-import { updateWallet } from '@/store/reducers/AccountSlice';
+import { updateWallet } from '@/store/reducers/accountSlice';
 
 
 const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen: boolean, onOpenChange: any, walletInfo: Wallet, onClose: () => void }) => {

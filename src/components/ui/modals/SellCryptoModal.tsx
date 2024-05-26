@@ -6,8 +6,8 @@ import SearchInput from "../inputs/SearchInput";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store/store";
 import { useEffect, useState } from "react";
-import { fetchNetworks, selectNetwork } from "@/store/reducers/NetworksSlice";
-import { fetchTokens } from "@/store/reducers/TokensSlice";
+import { fetchNetworks, selectNetwork } from "@/store/reducers/networksSlice";
+import { fetchTokens } from "@/store/reducers/tokensSlice";
 
 const SellCryptoModal = ({ isOpen, onClose, onOpenChange }: { isOpen: boolean, onClose: () => void, onOpenChange: () => void }) => {
     const dispatch = useAppDispatch();

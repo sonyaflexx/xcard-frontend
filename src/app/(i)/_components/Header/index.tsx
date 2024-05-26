@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store/store";
 import ActionButton from "@/app/(i)/_components/WalletMenu/ActionButton";
 import { useState, useRef, useEffect } from "react";
-import { switchActiveWallet } from "@/store/reducers/AccountSlice";
+import { switchActiveWallet } from "@/store/reducers/accountSlice";
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 import { useDisclosure } from "@nextui-org/react";
 import EditWalletModal from "@/components/ui/modals/EditWalletModal";

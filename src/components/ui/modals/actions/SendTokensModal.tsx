@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store/store";
 import MoneyChange from "../../MoneyChange";
 import { useEffect, useState } from "react";
-import { fetchNetworks, selectNetwork } from "@/store/reducers/NetworksSlice";
+import { fetchNetworks, selectNetwork } from "@/store/reducers/networksSlice";
 import { Token } from "@/types";
 
 const SendTokensModal = ({ isOpen, onClose, onOpenChange, onSelectToken }: { isOpen: boolean, onClose: () => void, onOpenChange: () => void, onSelectToken: (token: Token) => void }) => {

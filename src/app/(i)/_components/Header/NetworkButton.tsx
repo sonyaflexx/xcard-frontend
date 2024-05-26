@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { RootState } from '@/store/store';
-import { fetchNetworks } from '@/store/reducers/NetworksSlice';
+import { fetchNetworks } from '@/store/reducers/networksSlice';
 import GrayButton from '@/components/ui/inputs/buttons/GrayButton';
 import NetworksModal from '@/components/ui/modals/NetworksModal';
 import CreateNetworkModal from '@/components/ui/modals/CreateNetworkModal';

@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import networksReducer from './reducers/NetworksSlice';
-import accountReducer from './reducers/AccountSlice';
-import tokensReducer from './reducers/TokensSlice';
-import notificationsReducer from './reducers/NotificationsSlice';
-import settingsReducer from './reducers/SettingsSlice';
+import networksReducer from './reducers/networksSlice';
+import accountReducer from './reducers/accountSlice';
+import tokensReducer from './reducers/tokensSlice';
+import notificationsReducer from './reducers/notificationsSlice';
+import settingsReducer from './reducers/settingsSlice';
+import authReducer from './reducers/authSlice';
 
 export const store = configureStore({
   reducer: {
+    auth: authReducer,
     networks: networksReducer,
     account: accountReducer,
     tokens: tokensReducer,

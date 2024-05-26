@@ -2,12 +2,12 @@
 
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import { hideNotification } from '@/store/reducers/NotificationsSlice';
+import { hideNotification } from '@/store/reducers/notificationsSlice';
 import Notification from '@/components/ui/Notification';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { RootState } from '@/store/store';
-import { switchActiveWallet } from '@/store/reducers/AccountSlice';
-import { selectNetwork } from '@/store/reducers/NetworksSlice';
+import { switchActiveWallet } from '@/store/reducers/accountSlice';
+import { selectNetwork } from '@/store/reducers/networksSlice';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const { showNotification, message, duration } = useAppSelector((state) => state.notifications);

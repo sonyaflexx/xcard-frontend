@@ -12,7 +12,7 @@ import SendTokensModal from "@/components/ui/modals/actions/SendTokensModal"
 import ReceiveTokensModal from "@/components/ui/modals/actions/ReceiveTokensModal"
 import { useState } from "react"
 import TokenDetailsModal from "@/components/ui/modals/actions/TokenDetailsModal"
-import { showNotification } from "@/store/reducers/NotificationsSlice"
+import { showNotification } from "@/store/reducers/notificationsSlice"
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/react";
 import BuyCryptoModal from "@/components/ui/modals/BuyCryptoModal"
 import SellCryptoModal from "@/components/ui/modals/SellCryptoModal"

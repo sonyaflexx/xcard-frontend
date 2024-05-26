@@ -3,10 +3,10 @@
 import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store/store";
-import { fetchNetworks, selectNetwork } from "@/store/reducers/NetworksSlice";
+import { fetchNetworks, selectNetwork } from "@/store/reducers/networksSlice";
 import { Token } from "@/types";
 import Notification from "../../Notification";
-import { showNotification, hideNotification } from "@/store/reducers/NotificationsSlice";
+import { showNotification, hideNotification } from "@/store/reducers/notificationsSlice";
 import { useEffect } from "react";
 
 const ReceiveTokensModal = ({ isOpen, onClose, onOpenChange }: { isOpen: boolean, onClose: () => void, onOpenChange: () => void }) => {

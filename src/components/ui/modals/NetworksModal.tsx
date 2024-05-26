@@ -6,7 +6,7 @@ import SearchInput from "../inputs/SearchInput";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store/store";
 import { useEffect, useState } from "react";
-import { fetchNetworks, selectNetwork } from "@/store/reducers/NetworksSlice";
+import { fetchNetworks, selectNetwork } from "@/store/reducers/networksSlice";
 
 const NetworksModal = ({ isOpen, onClose, onOpenNewModal }: { isOpen: boolean, onClose: () => void, onOpenNewModal: () => void }) => {
     const dispatch = useAppDispatch();

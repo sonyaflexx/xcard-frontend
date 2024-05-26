@@ -5,8 +5,8 @@ interface Token {
 }
 
 //
-const instance = axios.create({
-  baseURL: 'http://147.45.111.44:8000',
+export const instance = axios.create({
+  baseURL: process.env.API_URL || 'http://localhost:8000',
   headers: {
     'Content-Type': 'application/json',
   },

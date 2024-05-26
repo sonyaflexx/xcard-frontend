@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { setTheme, setLanguage, setDefaultCurrency } from '@/store/reducers/SettingsSlice'
+import { setTheme, setLanguage, setDefaultCurrency } from '@/store/reducers/settingsSlice'
 import { RootState } from '@/store/store';
 import { AppDispatch } from '@/store/store';
 
