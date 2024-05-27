@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { useCookie } from 'next-cookie';
 import axios from 'axios';
 import { instance } from '@/api/auth';
 

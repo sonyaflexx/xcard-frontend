@@ -12,7 +12,7 @@ const SendTokensModal = ({ isOpen, onClose, onOpenChange, onSelectToken }: { isO
     const dispatch = useAppDispatch();
     const networks = useAppSelector((state: RootState) => state.networks.items);
     const activeNetworkId = useAppSelector((state: RootState) => state.networks.activeNetworkId);
-    const activeNetwork = networks.find(network => network.id === activeNetworkId);
+    const activeNetwork = networks.find(network => network.chainId === activeNetworkId);
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
     const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
     const activeWallet = wallets.find(wallet => wallet.id === activeWalletId);

@@ -20,8 +20,8 @@ export default function Navbar({ activePage }: { activePage: string }) {
     const { isOpen: isOpenCreate, onOpen: onOpenCreate, onClose: onCloseCreate } = useDisclosure();
     const dispatch = useAppDispatch();
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
-    const activeWalletAddress = useAppSelector((state: RootState) => state.account.activeWalletAddress);
-    const activeWallet = wallets.find(wallet => wallet.address === activeWalletAddress);
+    const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
+    const activeWallet = wallets.find(wallet => wallet.id === activeWalletId);
 
     const toggleDropdown = () => {
         setIsDropdownVisible(prevState => !prevState);
@@ -42,10 +42,10 @@ export default function Navbar({ activePage }: { activePage: string }) {
 
     const [isOpenStates, setIsOpenStates] = useState<{ [key: string]: boolean }>({});
 
-    const handleOpenChange = (walletAddress: string, isOpen: boolean) => {
+    const handleOpenChange = (walletId: number, isOpen: boolean) => {
         setIsOpenStates(prevState => ({
             ...prevState,
-            [walletAddress]: isOpen
+            [walletId]: isOpen
         }));
     };
 
@@ -103,9 +103,9 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                     <ul className="flex flex-col overflow-y-auto max-h-[390px]">
                                         {wallets.map(wallet => (
                                             <li key={wallet.address} className="flex gap-1 pr-[9px] items-center">
-                                                <div className={`w-[3px] h-9 rounded-r-full ${wallet.address === activeWalletAddress && 'bg bg-green-50'}`}></div>
+                                                <div className={`w-[3px] h-9 rounded-r-full ${wallet.id === activeWalletId && 'bg bg-green-50'}`}></div>
                                                 <GrayButton className="rounded-xl p-2 w-full" onClick={() => {
-                                                    dispatch(switchActiveWallet(wallet.address));
+                                                    dispatch(switchActiveWallet(wallet.id));
                                                     setIsDropdownVisible(false);
                                                 }}>
                                                     <div className="flex justify-between items-center">
@@ -127,7 +127,7 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                                         </div>
                                                     </DropdownTrigger>
                                                     <DropdownMenu variant="flat">
-                                                        <DropdownItem onClick={() => handleOpenChange(wallet.address, true)} key="edit" className="hover:border-none dark:text-white hover:dark:text-white dark:hover:bg-gray-400 focus:outline-none">
+                                                        <DropdownItem onClick={() => handleOpenChange(wallet.id, true)} key="edit" className="hover:border-none dark:text-white hover:dark:text-white dark:hover:bg-gray-400 focus:outline-none">
                                                             <div className="flex justify-between items-center">
                                                                 <span>Edit</span>
                                                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path d="m2.695 14.763-1.262 3.154a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.885L17.5 5.5a2.121 2.121 0 0 0-3-3L3.58 13.42a4 4 0 0 0-.885 1.343z"></path></svg>
@@ -142,10 +142,10 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                                     </DropdownMenu>
                                                 </Dropdown>
                                                 <EditWalletModal
-                                                    isOpen={isOpenStates[wallet.address] || false}
-                                                    onOpenChange={(isOpen: boolean) => handleOpenChange(wallet.address, isOpen)}
+                                                    isOpen={isOpenStates[wallet.id] || false}
+                                                    onOpenChange={(isOpen: boolean) => handleOpenChange(wallet.id, isOpen)}
                                                     walletInfo={wallet}
-                                                    onClose={() => handleOpenChange(wallet.address, false)}
+                                                    onClose={() => handleOpenChange(wallet.id, false)}
                                                 />
                                             </li>
                                         ))}

@@ -26,9 +26,11 @@ const CreateWalletModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =
         try {
             const walletData: Wallet = {
                 ...data,
-                name: data.name || 'Wallet'
+                name: data.name || 'Wallet',
+                avatar: selectedSmiley,
+                avatarBgColor: selectedColor
             };
-    
+            console.log(walletData)
             await dispatch(createWallet(walletData));
             onClose();
         } catch (error) {

@@ -1,4 +1,5 @@
 interface Wallet {
+    id: number;
     address: string;
     name: string;
     avatar: string; // Unicode emoji
@@ -35,12 +36,23 @@ interface Account {
 }
 
 interface AccountState {
+    
     wallets: Wallet[];
-    card: Card;
-    activeWalletAddress: string | null; 
-    status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    error: string | null;
-  }
+    activeWalletId: number | null;
+    card: { id: number; balance: number };
+    status: {
+      fetchAccountData: 'idle' | 'loading' | 'succeeded' | 'failed';
+      fetchWallets: 'idle' | 'loading' | 'succeeded' | 'failed';
+      createWallet: 'idle' | 'loading' | 'succeeded' | 'failed';
+      updateWallet: 'idle' | 'loading' | 'succeeded' | 'failed';
+    };
+    error: {
+      fetchAccountData: string | null;
+      fetchWallets: string | null;
+      createWallet: string | null;
+      updateWallet: string | null;
+    };
+}
 
   interface UserFormData {
     username: string;

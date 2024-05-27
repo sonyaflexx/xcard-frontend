@@ -8,6 +8,7 @@ import { login } from '@/store/reducers/authSlice';
 import { RootState } from '@/store/store';
 import AuthInput from '@/components/ui/inputs/AuthInput';
 import GreenButton from '@/components/ui/inputs/buttons/GreenButton';
+import { useAppDispatch } from '@/hooks/redux';
 
 interface LoginFormValues {
   email: string;
@@ -16,7 +17,7 @@ interface LoginFormValues {
 
 export default function LoginForm() {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<LoginFormValues>();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { email, password } = watch();
   const authStatus = useSelector((state: RootState) => state.auth.loginStatus);
   const authError = useSelector((state: RootState) => state.auth.loginError);

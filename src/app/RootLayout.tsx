@@ -1,17 +1,18 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { hideNotification } from '@/store/reducers/notificationsSlice';
 import Notification from '@/components/ui/Notification';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { RootState } from '@/store/store';
-import { switchActiveWallet } from '@/store/reducers/accountSlice';
+import { fetchAccountData, switchActiveWallet } from '@/store/reducers/accountSlice';
 import { selectNetwork } from '@/store/reducers/networksSlice';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const { showNotification, message, duration } = useAppSelector((state) => state.notifications);
   const dispatch = useAppDispatch();
+  const token = useAppSelector((state: RootState) => state.auth.token);
 
   const handleCloseNotification = () => {
     dispatch(hideNotification());
@@ -28,12 +29,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       }
     }, [activeWalletId]);
 
+  
     useEffect(() => {
-      if (activeNetwork !== activeNetworkId) {
-        dispatch(selectNetwork(activeNetworkId));
+      if (token) {
+        dispatch(fetchAccountData());
       }
-    }, [activeNetworkId]);
-
+    }, [dispatch, token]);
   return (
     <>
       {showNotification && (

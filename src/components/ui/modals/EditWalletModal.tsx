@@ -18,14 +18,15 @@ const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen
     const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
     const dispatch = useAppDispatch();
-    const walletAddress = walletInfo.address;
-    const wallet = useAppSelector((state: RootState) => state.account.wallets.find((wallet) => wallet.address === walletAddress));
+    const walletId = walletInfo.id;
+    const wallet = useAppSelector((state: RootState) => state.account.wallets.find((wallet) => wallet.id === walletId));
 
     const [selectedSmiley, setSelectedSmiley] = useState(wallet?.avatar);
     const [selectedColor, setSelectedColor] = useState(wallet?.avatarBgColor);
 
     const onSubmit = (data: any) => {
         const updatedWallet: Wallet = {
+            id: wallet?.id || -1,
             address: wallet?.address || '',
             name: data.name || wallet?.name,
             avatarBgColor: selectedColor || '',

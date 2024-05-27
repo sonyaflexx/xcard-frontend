@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { Account, AccountState, Wallet } from '@/types';
 import { instance } from '@/api/auth';
 
@@ -19,74 +18,95 @@ export const createWallet = createAsyncThunk<Wallet, Wallet>(
   }
 );
 
+export const updateWallet = createAsyncThunk<Wallet, Wallet>(
+  'account/updateWallet',
+  async (updatedWallet) => {
+    const response = await instance.put(`/wallets/edit/${updatedWallet.id}`, updatedWallet);
+    return response.data;
+  }
+);
+
 const initialAccountState: AccountState = {
-  wallets: [
-    {
-      address: 'qwew8W8289d929sK2k28dsj2mx',
-      name: 'My Wallet',
-      avatar: '🔱',
-      avatarBgColor: 'rgb(227, 177, 103)',
-      tokens: undefined,
-      transactions: undefined,
-    }
-  ],
-  activeWalletAddress: 'qwew8W8289d929sK2k28dsj2mx',
+  wallets: [],
+  activeWalletId: null,
   card: { id: 0, balance: 0 },
-  status: 'idle',
-  error: null,
+  status: {
+    fetchAccountData: 'idle',
+    fetchWallets: 'idle',
+    createWallet: 'idle',
+    updateWallet: 'idle',
+  },
+  error: {
+    fetchAccountData: null,
+    fetchWallets: null,
+    createWallet: null,
+    updateWallet: null,
+  },
 };
 
 const accountSlice = createSlice({
   name: 'account',
   initialState: initialAccountState,
   reducers: {
-    updateWallet: (state, action: PayloadAction<Wallet>) => {
-      const updatedWallet = action.payload;
-      const index = state.wallets.findIndex((w) => w.address === updatedWallet.address);
-      if (index !== -1) {
-        state.wallets[index] = updatedWallet;
-      }
-    },
-    switchActiveWallet: (state, action: PayloadAction<string>) => {
-      const newActiveWalletAddress = action.payload;
-      const walletIndex = state.wallets.findIndex((wallet) => wallet.address === newActiveWalletAddress);
+    switchActiveWallet: (state, action: PayloadAction<number>) => {
+      const newActiveWalletId = action.payload;
+      const walletIndex = state.wallets.findIndex((wallet) => wallet.id === newActiveWalletId);
 
       if (walletIndex !== -1) {
-        state.activeWalletAddress = newActiveWalletAddress;
-        localStorage.setItem('activeWalletAddress', state.activeWalletAddress);
+        state.activeWalletId = newActiveWalletId;
+        localStorage.setItem('activeWalletId', state.activeWalletId.toString());
       }
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAccountData.pending, (state) => {
-        state.status = 'loading';
+        state.status.fetchAccountData = 'loading';
+        state.error.fetchAccountData = null;
       })
       .addCase(fetchAccountData.fulfilled, (state, action: PayloadAction<Account>) => {
-        state.status = 'succeeded';
+        state.status.fetchAccountData = 'succeeded';
         state.wallets = action.payload.wallets;
         state.card = action.payload.card;
-        state.activeWalletAddress = action.payload.wallets[0].address;
+        if (state.wallets.length > 0) {
+          state.activeWalletId = state.wallets[0].id;
+        }
       })
       .addCase(fetchAccountData.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message ?? 'Failed to fetch account data';
+        state.status.fetchAccountData = 'failed';
+        state.error.fetchAccountData = action.error.message ?? 'Failed to fetch account data';
       })
       .addCase(createWallet.pending, (state) => {
-        state.status = 'loading';
+        state.status.createWallet = 'loading';
+        state.error.createWallet = null;
       })
       .addCase(createWallet.fulfilled, (state, action: PayloadAction<Wallet>) => {
-        state.status = 'succeeded';
+        state.status.createWallet = 'succeeded';
         state.wallets.push(action.payload);
-        state.activeWalletAddress = action.payload.address;
+        state.activeWalletId = action.payload.id;
       })
       .addCase(createWallet.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message ?? 'Failed to create wallet';
+        state.status.createWallet = 'failed';
+        state.error.createWallet = action.error.message ?? 'Failed to create wallet';
+      })
+      .addCase(updateWallet.pending, (state) => {
+        state.status.updateWallet = 'loading';
+        state.error.updateWallet = null;
+      })
+      .addCase(updateWallet.fulfilled, (state, action: PayloadAction<Wallet>) => {
+        state.status.updateWallet = 'succeeded';
+        const index = state.wallets.findIndex((w) => w.id === action.payload.id);
+        if (index !== -1) {
+          state.wallets[index] = action.payload;
+        }
+      })
+      .addCase(updateWallet.rejected, (state, action) => {
+        state.status.updateWallet = 'failed';
+        state.error.updateWallet = action.error.message ?? 'Failed to update wallet';
       });
   },
 });
 
-export const { updateWallet, switchActiveWallet } = accountSlice.actions;
+export const { switchActiveWallet } = accountSlice.actions;
 
 export default accountSlice.reducer;

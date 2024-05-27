@@ -25,21 +25,8 @@ export default function RegisterForm() {
     const authStatus = useAppSelector((state: RootState) => state.auth.registerStatus);
     const authError = useAppSelector((state: RootState) => state.auth.registerError);
     const router = useRouter()
-
-    const onSubmit = async(data: any) => {
-        try {
-            const result = await registerRequest({
-                email,
-                password
-            })
-    
-            if (result) router.replace("/")
-        } catch {
-    }
-    };
-
   
-  const handleRegister = async (data: RegisterFormValues) => {
+  const handleRegister = async (data: any) => {
     const result = await dispatch(register(data));
     if (register.fulfilled.match(result)) {
       router.replace("/");

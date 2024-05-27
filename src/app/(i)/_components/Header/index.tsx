@@ -32,6 +32,7 @@ export default function Header({ activePage }: { activePage: string }) {
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
     const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
     const activeWallet = wallets.find(wallet => wallet.id === activeWalletId);
+    const userEmail = useAppSelector((state: RootState) => state.auth.email)
     
     const toggleDropdown = () => {
       setIsDropdownVisible(!isDropdownVisible);
@@ -66,7 +67,7 @@ export default function Header({ activePage }: { activePage: string }) {
     
     return (
         <header className="z-30 h-16 max-md:px-4 md:px-8 flex items-center justify-between sticky top-0 dark:bg-gray-600 bg-white">
-            <h1 className="max-md:hidden text-lg font-semibold">{ title }</h1>
+            <h1 className="max-md:hidden text-lg font-semibold">{ title } {userEmail}</h1>
             <div className="md:hidden">
                 {wallets && wallets.length > 0 ? (
                         <div className="relative flex">
@@ -156,12 +157,17 @@ export default function Header({ activePage }: { activePage: string }) {
                             </div>
                         </div>
                     ) : (
-                        <Link
-                            href="/auth"
-                            className="max-md:hidden truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
-                        >
-                            Create Wallet
-                        </Link>
+                        <>
+                            <Link
+                                href="/auth"
+                                className="max-md:hidden truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
+                            >
+                                Create Wallet
+                            </Link>
+                            <Link href={'/auth'} className={`md:hidden dark:text-gray-300 text-gray-400 md:p-2 rounded-full md:hover:bg-gray-200 md:dark:hover:bg-gray-420`}>
+                                <svg viewBox="0 0 20 20" fill="currentColor" width="24" height="24" role="img"><path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5z"></path></svg>
+                            </Link>
+                        </>
                     )}
             </div>
             <div className="flex md:gap-2 gap-1">
