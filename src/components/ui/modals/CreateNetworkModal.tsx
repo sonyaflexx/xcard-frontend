@@ -55,7 +55,7 @@ const CreateNetworkModal = ({ isOpen, onClose, onOpenPreviousModal }: { isOpen: 
     return (
         <Modal hideCloseButton isOpen={isOpen} onOpenChange={onClose}>
             <form className="flex flex-col gap-6" onSubmit={handleSubmit(handleCreateNetwork)}>
-            <ModalContent className="sm:mx-0 sm:max-w-full max-md:rounded-none max-md:m-0 dark:bg-gray-600 rounded-3xl md:max-h-[90vh] h-[560px] max-w-[400px] max-md:size-full">
+            <ModalContent className="sm:mx-0 sm:max-w-full max-md:rounded-none max-md:m-0 dark:bg-gray-600 rounded-3xl md:max-h-[90vh] h-[560px] md:max-w-[400px] max-md:size-full">
                 <>
                     <ModalHeader className="flex justify-between items-center border-b dark:border-gray-400">
                         <div className="flex gap-3 items-center">
