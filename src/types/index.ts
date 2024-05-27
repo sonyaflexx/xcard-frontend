@@ -1,9 +1,8 @@
 interface Wallet {
-    id: number;
+    address: string;
     name: string;
     avatar: string; // Unicode emoji
     avatarBgColor: string;
-    address: string;
     tokens?: Token[];
     transactions?: Transaction[];
 }
@@ -38,7 +37,7 @@ interface Account {
 interface AccountState {
     wallets: Wallet[];
     card: Card;
-    activeWalletId: number | null; 
+    activeWalletAddress: string | null; 
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
   }

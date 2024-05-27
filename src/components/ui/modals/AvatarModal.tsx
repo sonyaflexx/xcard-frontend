@@ -3,29 +3,33 @@
 import { useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/modal';
 import GreenButton from '../inputs/buttons/GreenButton';
-import { smileys } from '@/components/smileys'; 
+import { smileys } from '@/components/smileysAndColors'; 
 import { Wallet } from 'ethers';
+import { colors } from '@/components/smileysAndColors';
 
-const colors = ['rgb(61, 61, 77)', 'rgb(228, 144, 144)', 'rgb(227, 177, 103)', 'rgb(145, 188, 118)', 'rgb(103, 190, 169)', 'rgb(85, 169, 217)', 'rgb(171, 125, 207)', 'rgb(223, 155, 208)'];
-
-const AvatarModal = ({ isOpen, onClose, onSelect, wallet } : { isOpen: any, onClose: any, onSelect: any, wallet: any }) => {
+const AvatarModal = ({ isOpen, onBack, onClose, onSelect, wallet } : { isOpen: any, onBack: any, onClose: any, onSelect: any, wallet: any }) => {
     const [selectedSmiley, setSelectedSmiley] = useState(wallet.avatar);
     const [selectedColor, setSelectedColor] = useState(wallet.avatarBgColor);
 
     const onSubmit = () => {
         onSelect(selectedSmiley, selectedColor);
-        onClose();
+        onBack();
     };
 
+    const onCloseFull = () => {
+        onBack();
+        onClose();
+    }
+
     return (
-        <Modal hideCloseButton isOpen={isOpen} onClose={onClose}>
-            <ModalContent className="max-md:rounded-none sm:max-w-full max-md:m-0 dark:bg-gray-600 rounded-3xl max-w-[420px] ">
+        <Modal hideCloseButton isOpen={isOpen} onClose={onBack}>
+            <ModalContent className="max-md:rounded-none sm:max-w-full max-md:m-0 dark:bg-gray-600 rounded-3xl md:max-w-[420px]">
                 <ModalHeader>
                     <div className='flex items-center justify-between w-full'>
-                        <button type="button" className="flex items-center justify-center border-2 dark:border-gray-400 dark:bg-gray-420 p-1 rounded-full">
+                        <button type="button" onClick={onBack} className="flex items-center justify-center border-2 dark:border-gray-400 dark:bg-gray-420 p-1 rounded-full">
                             <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" color="#8C8CA1" role="img"><path fillRule="evenodd" d="M17 10a.75.75 0 0 1-.75.75H5.612l4.158 3.96a.75.75 0 1 1-1.04 1.08l-5.5-5.25a.75.75 0 0 1 0-1.08l5.5-5.25a.75.75 0 1 1 1.04 1.08L5.612 9.25H16.25A.75.75 0 0 1 17 10z" clipRule="evenodd"></path></svg>
                         </button>
-                        <button type="button" onClick={onClose} className="flex items-center justify-center border-2 dark:border-gray-400 bg-gray-50 dark:bg-gray-420 p-1 rounded-full">
+                        <button type="button" onClick={onCloseFull} className="flex items-center justify-center border-2 dark:border-gray-400 bg-gray-50 dark:bg-gray-420 p-1 rounded-full">
                             <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" color="#8C8CA1" role="img"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22z"></path></svg>
                         </button>
                     </div>
@@ -51,7 +55,7 @@ const AvatarModal = ({ isOpen, onClose, onSelect, wallet } : { isOpen: any, onCl
                             ))}
                         </ul>
                     </div>
-                    <ul className="p-6 dark:bg-gray-500 rounded-t-3xl flex flex-wrap overflow-y-auto flex-shrink max-h-[282px] w-full justify-center">
+                    <ul className="p-6 dark:bg-gray-500 rounded-t-3xl flex flex-wrap overflow-y-auto flex-shrink max-h-[282px] w-full justify-center overflow-x-hidden">
                         {smileys.map((smiley, index) => (
                             <li 
                                 key={index} 

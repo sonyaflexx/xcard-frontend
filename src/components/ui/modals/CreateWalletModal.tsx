@@ -10,49 +10,48 @@ import { Wallet } from "@/types";
 import AvatarModal from './AvatarModal';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { RootState } from '@/store/store';
-import { updateWallet } from '@/store/reducers/accountSlice';
+import { createWallet, updateWallet } from '@/store/reducers/accountSlice';
+import { smileys, colors } from '@/components/smileysAndColors';
 
 
-const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen: boolean, onOpenChange: any, walletInfo: Wallet, onClose: () => void }) => {
-    const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
+const CreateWalletModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const getRandomIndex = (array: Array<any>) => Math.floor(Math.random() * array.length);
 
+    const [selectedSmiley, setSelectedSmiley] = useState(smileys[getRandomIndex(smileys)]);
+    const [selectedColor, setSelectedColor] = useState(colors[getRandomIndex(colors)]);
     const dispatch = useAppDispatch();
-    const walletAddress = walletInfo.address;
-    const wallet = useAppSelector((state: RootState) => state.account.wallets.find((wallet) => wallet.address === walletAddress));
 
-    const [selectedSmiley, setSelectedSmiley] = useState(wallet?.avatar);
-    const [selectedColor, setSelectedColor] = useState(wallet?.avatarBgColor);
-
-    const onSubmit = (data: any) => {
-        const updatedWallet: Wallet = {
-            address: wallet?.address || '',
-            name: data.name || wallet?.name,
-            avatarBgColor: selectedColor || '',
-            avatar: selectedSmiley || '',
-            tokens: wallet?.tokens,
-            transactions: wallet?.transactions
-        };
-          
-        dispatch(updateWallet(updatedWallet));
-        onClose();
+    const onSubmit = async (data: any) => {
+        try {
+            const walletData: Wallet = {
+                ...data,
+                name: data.name || 'Wallet'
+            };
+    
+            await dispatch(createWallet(walletData));
+            onClose();
+        } catch (error) {
+            console.error('Error creating wallet:', error);
+        }
     };
 
     const handleAvatarSelect = (smiley: string, color: string) => {
         setSelectedSmiley(smiley);
         setSelectedColor(color);
-        setIsAvatarModalOpen(false);
     };
+
+    const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
     return (
         <>
             <Modal hideCloseButton isOpen={isOpen} onClose={onClose}>
-                <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+            <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
                     <ModalContent className="sm:mx-0 sm:max-w-full max-md:rounded-none max-md:m-0 dark:bg-gray-600 rounded-3xl md:max-h-[90vh] md:max-w-[420px] max-md:size-full">
                         <>
                             <ModalHeader className="flex justify-between items-center border-b-2 dark:border-gray-400">
                                 <div className="flex gap-3 items-center">
-                                    <h1>Edit Wallet</h1>
+                                    <h1>Create Wallet</h1>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <button type="button" onClick={onClose} className="flex items-center justify-center border-2 dark:border-gray-400 bg-gray-50 dark:bg-gray-420 p-1 rounded-full">
@@ -62,9 +61,9 @@ const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen
                             </ModalHeader>
                             <ModalBody className="p p-6">
                                 <div className="flex flex-col items-center gap-7">
-                                    <div className="w-14 h-14 flex items-center justify-center rounded-xl relative" style={{backgroundColor: selectedColor || wallet?.avatarBgColor}} onClick={() => setIsAvatarModalOpen(true)}> 
+                                    <div className="w-14 h-14 flex items-center justify-center rounded-xl relative" style={{backgroundColor: selectedColor}} onClick={() => setIsAvatarModalOpen(true)}> 
                                         <div className="text-3xl text-center leading-none">
-                                            {selectedSmiley || wallet?.avatar}
+                                            {selectedSmiley}
                                         </div>
                                         <div className="absolute right-0 bottom-0 translate-x-1/2 translate-y-1/2 p-0.5 dark:bg-gray-350 border-2 dark:border-gray-600 rounded-full">
                                             <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" role="img"><path d="m2.695 14.763-1.262 3.154a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.885L17.5 5.5a2.121 2.121 0 0 0-3-3L3.58 13.42a4 4 0 0 0-.885 1.343z"></path></svg>
@@ -73,28 +72,22 @@ const EditWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOpen
                                     <Input
                                         type="text"
                                         error={errors.name && errors.name.message}
-                                        placeholder={wallet?.name}
+                                        placeholder='Wallet'
                                         register={register("name")}
                                         className="px-0"
                                         classNameInput="py-3 px-3 text-lg leading-6"
                                     />
                                 </div>
                                 <GreenButton type="submit" text="Done" size="sm py-1 w-full mt-2" />
-                            </ModalBody>
+                                </ModalBody>
                         </>
                     </ModalContent>
                 </form>
             </Modal>
 
-            <AvatarModal
-                isOpen={isAvatarModalOpen}
-                onClose={onClose}
-                onBack={() => setIsAvatarModalOpen(false)}
-                onSelect={handleAvatarSelect}
-                wallet={wallet}
-            />
+            <AvatarModal isOpen={isAvatarModalOpen} onClose={onClose} onBack={() => setIsAvatarModalOpen(false)} onSelect={handleAvatarSelect} wallet={{avatar: selectedSmiley, avatarBgColor: selectedColor}} />
         </>
     );
 };
 
-export default EditWalletModal
+export default CreateWalletModal;

@@ -4,10 +4,17 @@ import { forwardRef, useState, ForwardedRef } from "react";
 
 const AuthInput = forwardRef<
   HTMLInputElement,
-  { type: string; placeholder: string; error?: any; register: any, className?: string }
+  { 
+    type: string; 
+    placeholder: string; 
+    error?: any; 
+    register: any; 
+    className?: string;
+    authError?: string; 
+  }
 >(
   (
-    { register, type, placeholder, error, className },
+    { register, type, placeholder, error, className, authError },
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -19,7 +26,9 @@ const AuthInput = forwardRef<
 
     return (
         <div className="flex flex-col gap-1">
-            <div className={`border-2 dark:border-gray-400 dark:bg-gray-500 rounded-xl flex outline-2 outline-green-50 ${isFocused && 'outline border-green-50'} ${error && !isFocused && 'border-red-regular'} ${className}`}>
+            <div className={`border dark:border-gray-400 dark:bg-gray-500 rounded-xl flex outline-2 outline-green-50 ${
+              isFocused && "outline border-green-50 dark:border-green-50"
+            } ${!isFocused && error || authError && 'dark:border-red-regular border-red-regular'} ${className}`}>
                 <input 
                     ref={ref}
                     type={isPasswordVisible ? 'text' : type} 
@@ -47,12 +56,12 @@ const AuthInput = forwardRef<
                     </button>
                 )}
             </div>
-            {error && 
+            {(error || authError) && 
                 <div className="flex items-center gap-2">
                     <div>
                         <svg className="mt-0.5" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" color="#E5484D" role="img"><path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625l6.28-10.875zM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" clipRule="evenodd"></path></svg>
                     </div>
-                    <span className="text-red-soft text-sm leading-none">{error}</span>
+                    <span className="text-red-soft text-sm leading-none">{error || authError}</span>
                 </div>
             }
         </div>

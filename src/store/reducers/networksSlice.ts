@@ -2,9 +2,12 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface Network {
-  id: number;
   name: string;
   logo: string;
+  rpcUrl: string;
+  chainId: number;
+  symbol: string;
+  explorerUrl: string;
 }
 
 interface NetworksState {
@@ -25,9 +28,9 @@ const initialState: NetworksState = {
 export const fetchNetworks = createAsyncThunk('networks/fetchNetworks', async () => {
   // const response = await axios.get('/api/networks');
   const response = { data: [
-    { id: 1, name: 'Bitcoin', logo: 'https://onekey-asset.com/assets/btc/btc.png' },
-    { id: 2, name: 'Ethereum', logo: 'https://onekey-asset.com/assets/eth/eth.png' },
-    { id: 3, name: 'Solana', logo: 'https://onekey-asset.com/assets/sol/sol.png' },
+    { chainId: 1, name: 'Bitcoin', logo: 'https://onekey-asset.com/assets/btc/btc.png', symbol: 'BTC', rpcUrl: '', explorerUrl: '' },
+    { chainId: 2, name: 'Ethereum', logo: 'https://onekey-asset.com/assets/eth/eth.png', symbol: 'ETH', rpcUrl: '', explorerUrl: '' },
+    { chainId: 3, name: 'Solana', logo: 'https://onekey-asset.com/assets/sol/sol.png', symbol: 'SOL', rpcUrl: '', explorerUrl: '' },
   ]};
   return response.data;
 });

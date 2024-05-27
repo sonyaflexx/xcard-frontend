@@ -5,7 +5,7 @@ import MenuItem from "./_components/MenuItem"
 import ItemInfo from "./_components/ItemInfo"
 import ItemAction from "./_components/ItemAction"
 import ThemeSwitcher from "./_components/ThemeSwitcher"
-import { logout } from "@/api/auth"
+import { logout } from "@/store/reducers/authSlice"
 
 export default function Menu() {
     return (

@@ -10,7 +10,7 @@ import GreenButton from "../inputs/buttons/GreenButton";
 
 const CreateNetworkModal = ({ isOpen, onClose, onOpenPreviousModal }: { isOpen: boolean, onClose: () => void, onOpenPreviousModal: () => void }) => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
-    const { name, urlRpc} = watch();
+    const { name, urlRpc } = watch();
     const [rpcError, setRpcError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 

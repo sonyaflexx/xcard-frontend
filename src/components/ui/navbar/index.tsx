@@ -11,41 +11,41 @@ import { switchActiveWallet } from "@/store/reducers/accountSlice";
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 import { useDisclosure } from "@nextui-org/react";
 import EditWalletModal from "../modals/EditWalletModal";
+import CreateWalletModal from "../modals/CreateWalletModal";
 
 export default function Navbar({ activePage }: { activePage: string }) {
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-    
+    const { isOpen: isOpenCreate, onOpen: onOpenCreate, onClose: onCloseCreate } = useDisclosure();
     const dispatch = useAppDispatch();
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
-    const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
-    const activeWallet = wallets.find(wallet => wallet.id === activeWalletId);
-    
+    const activeWalletAddress = useAppSelector((state: RootState) => state.account.activeWalletAddress);
+    const activeWallet = wallets.find(wallet => wallet.address === activeWalletAddress);
+
     const toggleDropdown = () => {
-      setIsDropdownVisible(!isDropdownVisible);
+        setIsDropdownVisible(prevState => !prevState);
     };
-    
+
     useEffect(() => {
         function handleClickOutside(event: MouseEvent): void {
-            const target = event.target as Node;
-            if (dropdownRef.current && !dropdownRef.current.contains(target)) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsDropdownVisible(false);
             }
         }
-    
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-    
+
     const [isOpenStates, setIsOpenStates] = useState<{ [key: string]: boolean }>({});
 
-    const handleOpenChange = (walletId: number, isOpen: boolean) => {
+    const handleOpenChange = (walletAddress: string, isOpen: boolean) => {
         setIsOpenStates(prevState => ({
             ...prevState,
-            [walletId]: isOpen
+            [walletAddress]: isOpen
         }));
     };
 
@@ -91,7 +91,7 @@ export default function Navbar({ activePage }: { activePage: string }) {
                         >
                             <div className="flex justify-between items-center px-4 py-4">
                                 <span className="text-lg font-medium leading-none -mt-1">Wallets</span>
-                                <ActionButton type='link' href={'/auth'}>
+                                <ActionButton type='button' onClick={onOpenCreate}>
                                     <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5z"></path></svg>
                                 </ActionButton>
                             </div>
@@ -101,11 +101,11 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                 </div>
                                 <div>
                                     <ul className="flex flex-col overflow-y-auto max-h-[390px]">
-                                        { wallets.map(wallet => (
-                                            <li key={wallet.id} className="flex gap-1 pr-[9px] items-center">
-                                                <div className={`w-[3px] h-9 rounded-r-full ${wallet.id === activeWalletId && 'bg bg-green-50'}`}></div>
+                                        {wallets.map(wallet => (
+                                            <li key={wallet.address} className="flex gap-1 pr-[9px] items-center">
+                                                <div className={`w-[3px] h-9 rounded-r-full ${wallet.address === activeWalletAddress && 'bg bg-green-50'}`}></div>
                                                 <GrayButton className="rounded-xl p-2 w-full" onClick={() => {
-                                                    dispatch(switchActiveWallet(wallet.id));
+                                                    dispatch(switchActiveWallet(wallet.address));
                                                     setIsDropdownVisible(false);
                                                 }}>
                                                     <div className="flex justify-between items-center">
@@ -123,11 +123,11 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                                 <Dropdown className="dark:bg-gray-475">
                                                     <DropdownTrigger>
                                                         <div className="dark:text-gray-300 text-gray-400 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-420 absolute z-50 right-[17px] cursor-pointer">
-                                                            <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20"  role="img"><path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm1.5 7a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"></path></svg>
+                                                            <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path d="M10 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm0 5.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm1.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"></path></svg>
                                                         </div>
                                                     </DropdownTrigger>
                                                     <DropdownMenu variant="flat">
-                                                        <DropdownItem onClick={() => handleOpenChange(wallet.id, true)} key="edit" className="hover:border-none dark:text-white hover:dark:text-white dark:hover:bg-gray-400 focus:outline-none">
+                                                        <DropdownItem onClick={() => handleOpenChange(wallet.address, true)} key="edit" className="hover:border-none dark:text-white hover:dark:text-white dark:hover:bg-gray-400 focus:outline-none">
                                                             <div className="flex justify-between items-center">
                                                                 <span>Edit</span>
                                                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path d="m2.695 14.763-1.262 3.154a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.885L17.5 5.5a2.121 2.121 0 0 0-3-3L3.58 13.42a4 4 0 0 0-.885 1.343z"></path></svg>
@@ -142,27 +142,28 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                                     </DropdownMenu>
                                                 </Dropdown>
                                                 <EditWalletModal
-                                                    isOpen={isOpenStates[wallet.id] || false}
-                                                    onOpenChange={(isOpen: boolean) => handleOpenChange(wallet.id, isOpen)}
+                                                    isOpen={isOpenStates[wallet.address] || false}
+                                                    onOpenChange={(isOpen: boolean) => handleOpenChange(wallet.address, isOpen)}
                                                     walletInfo={wallet}
-                                                    onClose={() => handleOpenChange(wallet.id, false)}
+                                                    onClose={() => handleOpenChange(wallet.address, false)}
                                                 />
                                             </li>
-                                        )) }
+                                        ))}
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 ) : (
-                    <Link
-                        href="/auth"
+                    <button
+                        onClick={onOpenCreate}
                         className="max-md:hidden truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
                     >
                         Create Wallet
-                    </Link>
+                    </button>
                 )}
                 <NavList activePage={activePage} />
+                <CreateWalletModal isOpen={isOpenCreate} onClose={onCloseCreate} />
             </div>
         </nav>
     );

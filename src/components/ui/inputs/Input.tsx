@@ -21,7 +21,7 @@ const Input = forwardRef<
           </div>
           <div
             className={`relative border dark:border-gray-400 dark:bg-gray-500 rounded-xl flex items-center flex-col outline-2 outline-green-50 ${
-              isFocused && "outline border-green-50"
+              isFocused && "outline border-green-50 dark:border-green-50"
             } ${!isFocused && error && 'dark:border-red-regular border-red-regular'} ${className}`}
           >
             <input

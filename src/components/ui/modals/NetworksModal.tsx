@@ -58,13 +58,13 @@ const NetworksModal = ({ isOpen, onClose, onOpenNewModal }: { isOpen: boolean, o
                         <div className="max-h-[407px] overflow-y-auto">
                             <ul className="max-h-full">
                                 {filteredNetworks.map((network) => (
-                                    <li key={network.id}>
-                                        <button onClick={() => handleNetworkSelect(network.id)} className="font-medium flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-420 rounded-xl w-full">
+                                    <li key={network.chainId}>
+                                        <button onClick={() => handleNetworkSelect(network.chainId)} className="font-medium flex items-center justify-between p-2 hover:bg-gray-50 dark:hover:bg-gray-420 rounded-xl w-full">
                                             <div className="flex gap-3 items-center">
                                                 <img src={network.logo} alt={network.name} width={32} height={32} />
                                                 <span>{network.name}</span>
                                             </div>
-                                            {network.id === activeNetworkId && (
+                                            {network.chainId === activeNetworkId && (
                                                 <div className="rounded-full">
                                                     <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" color="#33C641" role="img"><path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25z" clipRule="evenodd"></path></svg>
                                                 </div>
