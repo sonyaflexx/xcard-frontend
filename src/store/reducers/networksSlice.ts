@@ -1,3 +1,4 @@
+import { instance } from '@/api/auth';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -26,20 +27,14 @@ const initialState: NetworksState = {
 };
 
 export const fetchNetworks = createAsyncThunk('networks/fetchNetworks', async () => {
-  // const response = await axios.get('/api/networks');
-  const response = { data: [
-    { chainId: 1, name: 'Bitcoin', logo: 'https://onekey-asset.com/assets/btc/btc.png', symbol: 'BTC', rpcUrl: '', explorerUrl: '' },
-    { chainId: 2, name: 'Ethereum', logo: 'https://onekey-asset.com/assets/eth/eth.png', symbol: 'ETH', rpcUrl: '', explorerUrl: '' },
-    { chainId: 3, name: 'Solana', logo: 'https://onekey-asset.com/assets/sol/sol.png', symbol: 'SOL', rpcUrl: '', explorerUrl: '' },
-  ]};
+  const response = await instance.get('/networks');
   return response.data;
 });
 
 export const createNetwork = createAsyncThunk('networks/createNetwork', async (newNetwork: Network) => {
-    // const response = await axios.post('/api/networks', newNetwork);
-    // return response.data;
-    return newNetwork;
-  });
+    const response = await instance.post('/networks', newNetwork);
+    return response.data;
+});
   
   const networksSlice = createSlice({
     name: 'networks',

@@ -7,15 +7,18 @@ import { useState, useEffect } from "react";
 
 import Input from "../inputs/Input";
 import GreenButton from "../inputs/buttons/GreenButton";
+import { useAppDispatch } from "@/hooks/redux";
+import { createNetwork } from "@/store/reducers/networksSlice";
 
 const CreateNetworkModal = ({ isOpen, onClose, onOpenPreviousModal }: { isOpen: boolean, onClose: () => void, onOpenPreviousModal: () => void }) => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const { name, urlRpc } = watch();
     const [rpcError, setRpcError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useAppDispatch();
 
     const handleCreateNetwork = async (data: any) => {
-        console.log(data)
+        dispatch(createNetwork(data))
     }
 
     const validateUrlRpc = (value: string) => {

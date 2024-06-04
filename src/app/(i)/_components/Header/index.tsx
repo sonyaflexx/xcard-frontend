@@ -56,9 +56,8 @@ export default function Header({ activePage }: { activePage: string }) {
     };
 
     const handleLogout = () => {
-        console.log("Logging out...");
-        dispatch(logout())
-
+        dispatch(logout());
+        location.reload();
     }
     
     if (activePage === '/' || activePage === '/card' || activePage === '/menu') {

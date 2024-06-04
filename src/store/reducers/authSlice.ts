@@ -118,16 +118,16 @@ const authSlice = createSlice({
         state.registerStatus = 'loading';
         state.registerError = null;
       })
-      .addCase(register.fulfilled, (state, action: PayloadAction<{ email: string; access_token: string; refresh_token: string }>) => {
+      .addCase(register.fulfilled, (state, action: PayloadAction<{ email: string; accessToken: string; refresh_token: string }>) => {
         state.registerStatus = 'succeeded';
         state.email = action.payload.email;
-        state.token = action.payload.access_token;
+        state.token = action.payload.accessToken;
         
-        localStorage.setItem('access_token', action.payload.access_token)
+        localStorage.setItem('access_token', action.payload.accessToken)
 
         const expires = new Date();
         expires.setDate(expires.getDate() + 7);
-        document.cookie = `access_token=${action.payload.access_token}; expires=${expires.toUTCString()}; path=/`;
+        document.cookie = `access_token=${action.payload.accessToken}; expires=${expires.toUTCString()}; path=/`;
       })
       .addCase(register.rejected, (state, action) => {
         state.registerStatus = 'failed';

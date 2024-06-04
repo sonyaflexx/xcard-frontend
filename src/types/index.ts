@@ -60,6 +60,7 @@ export interface Settings {
   
 export interface Account {
     id: number;
+    wallets: Wallet[];
     email: string;
     confirmedEmail: boolean;
     settingsId: number;

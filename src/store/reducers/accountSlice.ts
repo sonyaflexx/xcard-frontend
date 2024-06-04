@@ -21,13 +21,31 @@ export const createWallet = createAsyncThunk<Wallet, Wallet>(
 export const updateWallet = createAsyncThunk<Wallet, Wallet>(
   'account/updateWallet',
   async (updatedWallet) => {
-    const response = await instance.put(`/accounts/edit/${updatedWallet.id}`, updatedWallet);
+    const response = await instance.patch(`/accounts`, updatedWallet);
     return response.data;
   }
 );
 
+export const deleteWallet = createAsyncThunk<Wallet, Wallet>(
+  'account/deleteWallet',
+  async (deletedWalletId) => {
+    const response = await instance.delete(`/accounts`, deletedWalletId);
+    return response.data;
+  }
+);
+
+// export const switchActiveWallet = createAsyncThunk<Wallet, Wallet>(
+//   'account/switchActiveWallet',
+//   async (wallet) => {
+//     const response = await instance.delete(`/accounts`, deletedWallet);
+//     return response.data;
+//   }
+// );
+
 const initialAccountState: AccountState = {
-  wallets: [],
+  wallets: [
+
+  ],
   activeWalletId: 0,
   card: { id: 0, balance: 0 },
   status: {
@@ -54,7 +72,7 @@ const accountSlice = createSlice({
 
       if (walletIndex !== -1) {
         state.activeWalletId = newActiveWalletId;
-        localStorage.setItem('activeWalletId', state.activeWalletId.toString());
+        
       }
     },
   },
@@ -66,9 +84,9 @@ const accountSlice = createSlice({
       })
       .addCase(fetchAccountData.fulfilled, (state, action: PayloadAction<Account>) => {
         state.status.fetchAccountData = 'succeeded';
-        state.wallets = [action.payload.settings.selectedWallet];
+        state.wallets = action.payload.wallets;
         if (state.wallets.length > 0) {
-          state.activeWalletId = state.wallets[0].id;
+          state.activeWalletId = state.activeWalletId;
         }
       })
       .addCase(fetchAccountData.rejected, (state, action) => {
