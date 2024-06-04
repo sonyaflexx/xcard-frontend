@@ -31,9 +31,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
   
     useEffect(() => {
-      if (token) {
         dispatch(fetchAccountData());
-      }
     }, [dispatch, token]);
   return (
     <>

@@ -58,27 +58,27 @@ interface ConfirmResetPasswordPayload {
 }
 
 export const login = createAsyncThunk('auth/login', async ({ email, password }: LoginPayload) => {
-  const response = await instance.post('/login', { email, password });
+  const response = await instance.post('/auth/login', { email, password });
   return response.data;
 });
 
 export const register = createAsyncThunk('auth/register', async ({ email, password }: RegisterPayload) => {
-  const response = await instance.post('/register', { email, password });
+  const response = await instance.post('/auth/register', { email, password });
   return response.data;
 });
 
 export const verifyEmail = createAsyncThunk('auth/verifyEmail', async ({ email, verificationCode }: VerifyEmailPayload) => {
-  const response = await axios.post('/confirm-email', { email, confirmation_code: verificationCode });
+  const response = await axios.post('/auth/confirm-email', { email, confirmation_code: verificationCode });
   return response.data;
 });
 
 export const resetPassword = createAsyncThunk('auth/resetPassword', async ({ email }: ResetPasswordPayload) => {
-  const response = await axios.post('/send-confirmation-code', { email });
+  const response = await axios.post('/auth/send-confirmation-code', { email });
   return response.data;
 });
 
 export const confirmResetPassword = createAsyncThunk('auth/confirmResetPassword', async ({ email, password, confirmationCode }: ConfirmResetPasswordPayload) => {
-  const response = await axios.post('/reset-password-confirm', { email, password, confirmation_code: confirmationCode });
+  const response = await axios.post('/auth/reset-password-confirm', { email, password, confirmation_code: confirmationCode });
   return response.data;
 });
 
@@ -100,15 +100,15 @@ const authSlice = createSlice({
         state.loginStatus = 'loading';
         state.loginError = null;
       })
-      .addCase(login.fulfilled, (state, action: PayloadAction<{ email: string; access_token: string; refresh_token: string }>) => {
+      .addCase(login.fulfilled, (state, action: PayloadAction<{ email: string; accessToken: string; }>) => {
         state.loginStatus = 'succeeded';
         state.email = action.payload.email;
-        state.token = action.payload.access_token;
-        localStorage.setItem('access_token', action.payload.access_token)
+        state.token = action.payload.accessToken;
+        localStorage.setItem('access_token', action.payload.accessToken)
 
         const expires = new Date();
         expires.setDate(expires.getDate() + 7);
-        document.cookie = `access_token=${action.payload.access_token}; expires=${expires.toUTCString()}; path=/`;
+        document.cookie = `access_token=${action.payload.accessToken}; expires=${expires.toUTCString()}; path=/`;
       })
       .addCase(login.rejected, (state, action) => {
         state.loginStatus = 'failed';

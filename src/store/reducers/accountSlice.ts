@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Account, AccountState, Wallet } from '@/types';
+import { Account, AccountState, Wallet, Settings } from '@/types';
 import { instance } from '@/api/auth';
 
 export const fetchAccountData = createAsyncThunk<Account>(
   'account/fetchAccountData',
   async () => {
-    const response = await instance.get('/me');
+    const response = await instance.get('/users/me');
     return response.data;
   }
 );
@@ -13,7 +13,7 @@ export const fetchAccountData = createAsyncThunk<Account>(
 export const createWallet = createAsyncThunk<Wallet, Wallet>(
   'account/createWallet',
   async (newWallet) => {
-    const response = await instance.post('/wallets/create', newWallet);
+    const response = await instance.post('/accounts', newWallet);
     return response.data;
   }
 );
@@ -21,23 +21,13 @@ export const createWallet = createAsyncThunk<Wallet, Wallet>(
 export const updateWallet = createAsyncThunk<Wallet, Wallet>(
   'account/updateWallet',
   async (updatedWallet) => {
-    const response = await instance.put(`/wallets/edit/${updatedWallet.id}`, updatedWallet);
+    const response = await instance.put(`/accounts/edit/${updatedWallet.id}`, updatedWallet);
     return response.data;
   }
 );
 
 const initialAccountState: AccountState = {
-  wallets: [
-    {
-      id: 0,
-      address: '12312123',
-      name: 'Wallet',
-      avatar: '2',
-      avatarBgColor: '#fff',
-      tokens: [],
-      transactions: [],
-    }
-  ],
+  wallets: [],
   activeWalletId: 0,
   card: { id: 0, balance: 0 },
   status: {
@@ -76,8 +66,7 @@ const accountSlice = createSlice({
       })
       .addCase(fetchAccountData.fulfilled, (state, action: PayloadAction<Account>) => {
         state.status.fetchAccountData = 'succeeded';
-        state.wallets = action.payload.wallets;
-        state.card = action.payload.card;
+        state.wallets = [action.payload.settings.selectedWallet];
         if (state.wallets.length > 0) {
           state.activeWalletId = state.wallets[0].id;
         }

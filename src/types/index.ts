@@ -23,15 +23,67 @@ export interface CoinMarketCapData {
     };
     quote: Quote;
   }
-  
+
+export interface Network {
+    id: number;
+    name: string;
+    rpcUrl: string;
+    chainId: number;
+    symbol: string;
+    explorerUrl: string;
+}
+
 export interface Wallet {
     id: number;
+    userId: number;
     address: string;
-    name: string;
+    mnemonic: string;
+    privateKey: string;
     avatar: string;
     avatarBgColor: string;
-    tokens?: Token[];
-    transactions?: Transaction[];
+    name: string;
+    settingsId: number;
+    createdAt: string;
+    updatedAt: string;
+  }
+  
+export interface Settings {
+    id: number;
+    userId: number;
+    selectedNetworkId: number | null;
+    selectedWalletId: number;
+    createdAt: string;
+    updatedAt: string;
+    selectedNetwork: Network | null;
+    selectedWallet: Wallet;
+}
+  
+export interface Account {
+    id: number;
+    email: string;
+    confirmedEmail: boolean;
+    settingsId: number;
+    createdAt: string;
+    updatedAt: string;
+    settings: Settings;
+}
+  
+export interface AccountState {
+    wallets: Wallet[];
+    activeWalletId: number;
+    card: { id: number; balance: number };
+    status: {
+      fetchAccountData: 'idle' | 'loading' | 'succeeded' | 'failed';
+      fetchWallets: 'idle' | 'loading' | 'succeeded' | 'failed';
+      createWallet: 'idle' | 'loading' | 'succeeded' | 'failed';
+      updateWallet: 'idle' | 'loading' | 'succeeded' | 'failed';
+};
+    error: {
+      fetchAccountData: string | null;
+      fetchWallets: string | null;
+      createWallet: string | null;
+      updateWallet: string | null;
+    };
 }
   
 export interface Card {
@@ -53,30 +105,6 @@ export interface Transaction {
     toWalletId: number;
     amount: number;
     token: Token;
-}
-  
-export interface Account {
-    id: number;
-    wallets: Wallet[];
-    card: Card;
-}
-
-export interface AccountState {
-    wallets: Wallet[];
-    activeWalletId: number | null;
-    card: { id: number; balance: number };
-    status: {
-      fetchAccountData: 'idle' | 'loading' | 'succeeded' | 'failed';
-      fetchWallets: 'idle' | 'loading' | 'succeeded' | 'failed';
-      createWallet: 'idle' | 'loading' | 'succeeded' | 'failed';
-      updateWallet: 'idle' | 'loading' | 'succeeded' | 'failed';
-    };
-    error: {
-      fetchAccountData: string | null;
-      fetchWallets: string | null;
-      createWallet: string | null;
-      updateWallet: string | null;
-    };
 }
   
 export interface UserFormData {

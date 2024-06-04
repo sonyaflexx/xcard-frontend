@@ -6,7 +6,7 @@ interface Token {
 
 //
 export const instance = axios.create({
-  baseURL: process.env.API_URL || 'http://localhost:8000',
+  baseURL: process.env.API_URL || 'http://localhost:8000/api',
   headers: {
     'Content-Type': 'application/json',
   },

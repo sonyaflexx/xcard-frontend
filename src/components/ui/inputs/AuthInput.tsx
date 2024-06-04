@@ -28,7 +28,7 @@ const AuthInput = forwardRef<
         <div className="flex flex-col gap-1">
             <div className={`border dark:border-gray-400 dark:bg-gray-500 rounded-xl flex outline-2 outline-green-50 ${
               isFocused && "outline border-green-50 dark:border-green-50"
-            } ${!isFocused && error || authError && 'dark:border-red-regular border-red-regular'} ${className}`}>
+            } ${!isFocused && (error || authError) && 'dark:border-red-regular border-red-regular'} ${className}`}>
                 <input 
                     ref={ref}
                     type={isPasswordVisible ? 'text' : type} 

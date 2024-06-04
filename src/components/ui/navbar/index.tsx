@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import NavList from "./navList";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { RootState } from "@/store/store";
 import GrayButton from "../inputs/buttons/GrayButton";
 import ActionButton from "@/app/(i)/_components/WalletMenu/ActionButton";
@@ -19,6 +19,7 @@ export default function Navbar({ activePage }: { activePage: string }) {
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
     const { isOpen: isOpenCreate, onOpen: onOpenCreate, onClose: onCloseCreate } = useDisclosure();
     const dispatch = useAppDispatch();
+    const account = useAppSelector((state: RootState) => state.account)
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
     const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
     const activeWallet = wallets.find(wallet => wallet.id === activeWalletId);
@@ -155,12 +156,21 @@ export default function Navbar({ activePage }: { activePage: string }) {
                         </div>
                     </div>
                 ) : (
-                    <button
-                        onClick={onOpenCreate}
-                        className="max-md:hidden truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
-                    >
-                        Create Wallet
-                    </button>
+                    account && account.status.fetchAccountData === 'succeeded' ? (
+                        <button
+                            onClick={onOpenCreate}
+                            className="max-md:hidden truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
+                        >
+                            Create Wallet
+                        </button>
+                    ) : (
+                        <Link
+                            href={'/auth'} 
+                            className="max-md:hidden truncate flex w-fit px-4 py-2 items-center justify-center border-2 dark:bg-gray-475 border-gray-200 dark:border-gray-400 rounded-xl"
+                        >
+                            Create Wallet
+                        </Link>
+                    )
                 )}
                 <NavList activePage={activePage} />
                 <CreateWalletModal isOpen={isOpenCreate} onClose={onCloseCreate} />

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { RootState } from "@/store/store";
 import ActionButton from "@/app/(i)/_components/WalletMenu/ActionButton";
 import { useState, useRef, useEffect } from "react";
@@ -26,7 +26,7 @@ export default function Header({ activePage }: { activePage: string }) {
     const wallets = useAppSelector((state: RootState) => state.account.wallets);
     const activeWalletId = useAppSelector((state: RootState) => state.account.activeWalletId);
     const activeWallet = wallets.find(wallet => wallet.id === activeWalletId);
-    const userEmail = useAppSelector((state: RootState) => state.auth.email)
+    const userEmail = ''
     
     const toggleDropdown = () => {
       setIsDropdownVisible(!isDropdownVisible);
@@ -56,7 +56,9 @@ export default function Header({ activePage }: { activePage: string }) {
     };
 
     const handleLogout = () => {
+        console.log("Logging out...");
         dispatch(logout())
+
     }
     
     if (activePage === '/' || activePage === '/card' || activePage === '/menu') {
