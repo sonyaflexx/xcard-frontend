@@ -20,14 +20,14 @@ const RemoveWalletModal = ({ isOpen, onOpenChange, walletInfo, onClose }: { isOp
                 {(onClose) => (
                 <>
                     <ModalHeader className="flex flex-col items-center gap-4 py-0">
-                        <div className="flex items-center justify-center p-3 rounded-full bg-yellow-softbg bg-opacity-20">
-                        <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24" color="#E5484D" role="img"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"></path></svg>
+                        <div className="flex items-center justify-center p-3 rounded-full bg-red-regular bg-opacity-20">
+                            <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="24" height="24" color="#E5484D" role="img"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"></path></svg>
                         </div>
-                        <h1>Enter code from email</h1>
+                        <h1></h1>
                     </ModalHeader>
                     <ModalBody className="py-0">
                     <p className="text-center text-gray-300 font-normal text-sm">
-                        Please enter the verification code sent to your email to complete the login process.
+                        Please enter the name of your wallet to confirm deletion:
                     </p>
                         <AuthInput
                             type="text"
