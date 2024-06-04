@@ -7,7 +7,7 @@ import { RootState } from "@/store/store";
 import GrayButton from "../inputs/buttons/GrayButton";
 import ActionButton from "@/app/(i)/_components/WalletMenu/ActionButton";
 import { useState, useRef, useEffect } from "react";
-import { switchActiveWallet } from "@/store/reducers/accountSlice";
+import { deleteWallet, switchActiveWallet } from "@/store/reducers/accountSlice";
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 import { useDisclosure } from "@nextui-org/react";
 import EditWalletModal from "../modals/EditWalletModal";
@@ -106,7 +106,7 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                             <li key={wallet.address} className="flex gap-1 pr-[9px] items-center">
                                                 <div className={`w-[3px] h-9 rounded-r-full ${wallet.id === activeWalletId && 'bg bg-green-50'}`}></div>
                                                 <GrayButton className="rounded-xl p-2 w-full" onClick={() => {
-                                                    dispatch(switchActiveWallet(wallet.id));
+                                                    dispatch(switchActiveWallet(wallet));
                                                     setIsDropdownVisible(false);
                                                 }}>
                                                     <div className="flex justify-between items-center">
@@ -134,12 +134,13 @@ export default function Navbar({ activePage }: { activePage: string }) {
                                                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img"><path d="m2.695 14.763-1.262 3.154a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.885L17.5 5.5a2.121 2.121 0 0 0-3-3L3.58 13.42a4 4 0 0 0-.885 1.343z"></path></svg>
                                                             </div>
                                                         </DropdownItem>
-                                                        <DropdownItem key="delete" className="dark:hover:bg-gray-400">
+                                                        {(wallets.length > 1 ? (
+                                                            <DropdownItem onClick={() => dispatch(deleteWallet(wallet))} key="delete" className="dark:hover:bg-gray-400">
                                                             <div className="flex justify-between items-center text-red-soft focus:outline-none">
                                                                 <span>Remove Wallet</span>
                                                                 <svg viewBox="0 0 20 20" fill="currentColor" width="20" height="20" color="#E5484D" role="img"><path fillRule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443a40.83 40.83 0 0 0-2.365.298.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5z" clipRule="evenodd"></path></svg>
                                                             </div>
-                                                        </DropdownItem>
+                                                        </DropdownItem>) : null as any)}
                                                     </DropdownMenu>
                                                 </Dropdown>
                                                 <EditWalletModal

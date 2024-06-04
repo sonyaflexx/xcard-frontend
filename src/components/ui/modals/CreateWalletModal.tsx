@@ -21,17 +21,19 @@ const CreateWalletModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =
     const [selectedSmiley, setSelectedSmiley] = useState(smileys[getRandomIndex(smileys)]);
     const [selectedColor, setSelectedColor] = useState(colors[getRandomIndex(colors)]);
     const dispatch = useAppDispatch();
+    const loading = useAppSelector((state: RootState) => state.account.status.createWallet === 'loading');
 
     const onSubmit = async (data: any) => {
         try {
             const walletData: Wallet = {
                 ...data,
-                name: data.name || 'Wallet',
+                name: data.name || '',
                 avatar: selectedSmiley,
                 avatarBgColor: selectedColor
             };
-            console.log(walletData)
             await dispatch(createWallet(walletData));
+            setSelectedSmiley(smileys[getRandomIndex(smileys)]);
+            setSelectedColor(colors[getRandomIndex(colors)]);
             onClose();
         } catch (error) {
             console.error('Error creating wallet:', error);
@@ -80,7 +82,7 @@ const CreateWalletModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () =
                                         classNameInput="py-3 px-3 text-lg leading-6"
                                     />
                                 </div>
-                                <GreenButton type="submit" text="Done" size="sm py-1 w-full mt-2" />
+                                <GreenButton type="submit" text="Done" isLoading={loading} size="sm py-1 w-full mt-2" />
                                 </ModalBody>
                         </>
                     </ModalContent>

@@ -26,21 +26,21 @@ export const updateWallet = createAsyncThunk<Wallet, Wallet>(
   }
 );
 
-export const deleteWallet = createAsyncThunk<Wallet, Wallet>(
+export const deleteWallet = createAsyncThunk<any, any>(
   'account/deleteWallet',
-  async (deletedWalletId) => {
-    const response = await instance.delete(`/accounts`, deletedWalletId);
-    return response.data;
+  async (deletedWallet) => {
+    const response = await instance.delete(`/accounts/${deletedWallet.id}`);
+    return { response, deletedWallet };
   }
 );
 
-// export const switchActiveWallet = createAsyncThunk<Wallet, Wallet>(
-//   'account/switchActiveWallet',
-//   async (wallet) => {
-//     const response = await instance.delete(`/accounts`, deletedWallet);
-//     return response.data;
-//   }
-// );
+export const switchActiveWallet = createAsyncThunk<any, Wallet>(
+  'account/switchActiveWallet',
+  async (wallet) => {
+    const response = await instance.post(`/accounts/change`, wallet);
+    return { response, wallet };
+  }
+);
 
 const initialAccountState: AccountState = {
   wallets: [
@@ -65,17 +65,7 @@ const initialAccountState: AccountState = {
 const accountSlice = createSlice({
   name: 'account',
   initialState: initialAccountState,
-  reducers: {
-    switchActiveWallet: (state, action: PayloadAction<number>) => {
-      const newActiveWalletId = action.payload;
-      const walletIndex = state.wallets.findIndex((wallet) => wallet.id === newActiveWalletId);
-
-      if (walletIndex !== -1) {
-        state.activeWalletId = newActiveWalletId;
-        
-      }
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAccountData.pending, (state) => {
@@ -85,9 +75,8 @@ const accountSlice = createSlice({
       .addCase(fetchAccountData.fulfilled, (state, action: PayloadAction<Account>) => {
         state.status.fetchAccountData = 'succeeded';
         state.wallets = action.payload.wallets;
-        if (state.wallets.length > 0) {
-          state.activeWalletId = state.activeWalletId;
-        }
+        state.activeWalletId = action.payload.settings.selectedWalletId;
+        console.log(state.activeWalletId)
       })
       .addCase(fetchAccountData.rejected, (state, action) => {
         state.status.fetchAccountData = 'failed';
@@ -120,10 +109,14 @@ const accountSlice = createSlice({
       .addCase(updateWallet.rejected, (state, action) => {
         state.status.updateWallet = 'failed';
         state.error.updateWallet = action.error.message ?? 'Failed to update wallet';
+      })
+      .addCase(switchActiveWallet.fulfilled, (state, action) => {
+        state.activeWalletId = action.payload.wallet.id;
+      })
+      .addCase(deleteWallet.fulfilled, (state, action: any) => {
+        state.activeWalletId = action.payload.response.data.lastAccountId;
+        state.wallets = state.wallets.filter(wallet => wallet.id !== action.payload.deletedWallet.id);
       });
-  },
-});
-
-export const { switchActiveWallet } = accountSlice.actions;
+}});
 
 export default accountSlice.reducer;
