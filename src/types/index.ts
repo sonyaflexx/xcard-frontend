@@ -1,19 +1,45 @@
-interface Wallet {
+export interface Quote {
+    USD: {
+        price: number;
+        percent_change_24h: number;
+        market_cap: number;
+    };
+}
+
+export interface CoinMarketCapData {
+    id: number;
+    name: string;
+    symbol: string;
+    slug: string;
+    is_active: number;
+    first_historical_data: string;
+    last_historical_data: string;
+    platform: null | {
+        id: number;
+        name: string;
+        symbol: string;
+        slug: string;
+        token_address: string;
+    };
+    quote: Quote;
+  }
+  
+export interface Wallet {
     id: number;
     address: string;
     name: string;
-    avatar: string; // Unicode emoji
+    avatar: string;
     avatarBgColor: string;
     tokens?: Token[];
     transactions?: Transaction[];
 }
-
-interface Card {
+  
+export interface Card {
     id: number;
     balance: number;
 }
-
-interface Token {
+  
+export interface Token {
     id: number;
     name: string;
     logo: string;
@@ -22,21 +48,20 @@ interface Token {
     change: number;
 }
 
-interface Transaction {
+export interface Transaction {
     fromWalletId: number;
     toWalletId: number;
     amount: number;
     token: Token;
 }
-
-interface Account {
+  
+export interface Account {
     id: number;
     wallets: Wallet[];
     card: Card;
 }
 
-interface AccountState {
-    
+export interface AccountState {
     wallets: Wallet[];
     activeWalletId: number | null;
     card: { id: number; balance: number };
@@ -53,22 +78,22 @@ interface AccountState {
       updateWallet: string | null;
     };
 }
-
-  interface UserFormData {
+  
+export interface UserFormData {
     username: string;
     email: string;
     phoneAreaCode: string;
     phoneNumber: string;
 }
-
-interface IndividualFormData {
+  
+export interface IndividualFormData {
     firstName: string;
     lastName: string;
     birthDate: string;
     profession: string;
 }
-
-interface DocumentFormData {
+  
+export interface DocumentFormData {
     type: string;
     front: string;
     number: string;
@@ -76,34 +101,9 @@ interface DocumentFormData {
     expiryDate: string;
 }
 
-interface AddressFormData {
+export interface AddressFormData {
     country: string;
     city: string;
     postCode: string;
     details: string;
 }
-
-export interface CoinMarketCapData {
-    id: string;
-    name: string;
-    symbol: string;
-    rank: number;
-    price_usd: string;
-    price_btc: string;
-    '24h_volume_usd': string;
-    market_cap_usd: string;
-    available_supply: string;
-    total_supply: string;
-    max_supply: string;
-    percent_change_1h: string;
-    percent_change_24h: string;
-    percent_change_7d: string;
-    last_updated: string;
-    tags?: string[];
-}
-
-export interface MarketData {
-    [category: string]: CoinMarketCapData[];
-}
-
-export type { Account, AccountState, Wallet, Transaction, Token, Card, UserFormData, AddressFormData, DocumentFormData, IndividualFormData }

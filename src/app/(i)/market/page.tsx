@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+'use client'
+
+import React, { useState, useEffect } from 'react';
 import { fetchMarketData } from '@/api/fetchMarketData';
-import { CoinMarketCapData, MarketData } from '@/types';
-import MarketTable from "./_components/MarketTable";
+import { CoinMarketCapData } from '@/types';
+import MarketGrid from './_components/MarketGrid';
 
 const tabs = [
   { label: 'Trending', key: 'Trending' },
@@ -13,41 +15,47 @@ const tabs = [
 ];
 
 export default function Market() {
-    const [marketData, setMarketData] = useState<MarketData | null>(null);
-    const [activeTab, setActiveTab] = useState<number>(0); // Default to the first tab
-  
-    useEffect(() => {
-      const fetchData = async () => {
+  const [marketData, setMarketData] = useState<CoinMarketCapData[]>([]);
+  const [activeTab, setActiveTab] = useState<string>('Trending');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
         const data = await fetchMarketData();
         setMarketData(data);
-      };
-      fetchData();
-    }, []);
-  
-    const handleTabChange = (key: string) => {
-      setActiveTab(Number(key));
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
-  
-    const handleSort = (column: string, order: 'desc' | 'asc') => {
-      // Implement sorting logic here
-    };
-  
-    if (!marketData) {
-      return <div>Loading...</div>;
-    }
-  
-    const filteredData = marketData[activeTab];
-  
-    return (
-      <div>
-        <div className="tabs">
-          {tabs.map((tab) => (
-            <button key={tab.key} onClick={() => handleTabChange(tab.key)}>
-              {tab.label}
-            </button>
-          ))}
-        </div>
-        <MarketTable marketData={filteredData} activeTab={activeTab} onSort={handleSort} />
-      </div>
-    );
+    fetchData();
+  }, []);
+
+  const handleTabChange = (key: string) => {
+    setActiveTab(key);
+  };
+
+  const handleSort = (column: string, order: 'asc' | 'desc') => {
+    // Implement sorting logic here
+  };
+
+  if (marketData.length === 0) {
+    return <div>Loading...</div>;
   }
+
+  return (
+    <div className="market">
+      <div className="flex space-x-4 mb-4">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            className={`py-2 px-4 rounded ${activeTab === tab.key ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-400'}`}
+            onClick={() => handleTabChange(tab.key)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <MarketGrid marketData={marketData} />
+    </div>
+  );
+}

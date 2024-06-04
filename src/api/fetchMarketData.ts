@@ -1,31 +1,15 @@
-import { CoinMarketCapData, MarketData } from "@/types";
+import { CoinMarketCapData } from '@/types';
+import axios from 'axios';
 
-const API_URL = 'https://api.coinmarketcap.com/v1/ticker/?limit=100';
-
-export async function fetchMarketData(): Promise<MarketData> {
+export async function fetchMarketData(): Promise<CoinMarketCapData[]> {
   try {
-    const response = await fetch(API_URL);
-    const data: CoinMarketCapData[] = await response.json();
-
-    const marketData: MarketData = {
-      Trending: [],
-      GameFi: [],
-      DeFi: [],
-      NFTs: [],
-      Meme: [],
-      Lending: [],
-    };
-
-    for (const item of data) {
-      if (item.tags) {
-        const category = item.tags.find((tag) => ['Trending', 'GameFi', 'DeFi', 'NFTs', 'Meme', 'Lending'].includes(tag));
-        if (category) {
-          marketData[category].push(item);
-        }
-      }
-    }
-
-    return marketData;
+    const response = await axios.get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
+      headers: {
+        'X-CMC_PRO_API_KEY': '17d6cf49-9e63-436d-b5b6-20941682b06f',
+      },
+      withCredentials: true
+    });
+    return response.data.data; // assuming response.data.data contains the array of CoinMarketCapData
   } catch (error) {
     console.error('Error fetching market data:', error);
     throw error;
