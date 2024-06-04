@@ -44,11 +44,6 @@ const transactions = [
 
 export default function Card() {
     const card = useAppSelector((state) => state.account.card)
-    const activeWalletId = useAppSelector((state) => state.account.activeWalletId);
-
-    if (!activeWalletId) {
-        return <EmptyWalletNotification />;
-    }
 
     if (!card) {
         return <EmptyCardsNotification />;

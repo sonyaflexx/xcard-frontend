@@ -27,8 +27,18 @@ export const updateWallet = createAsyncThunk<Wallet, Wallet>(
 );
 
 const initialAccountState: AccountState = {
-  wallets: [],
-  activeWalletId: null,
+  wallets: [
+    {
+      id: 0,
+      address: '12312123',
+      name: 'Wallet',
+      avatar: '2',
+      avatarBgColor: '#fff',
+      tokens: [],
+      transactions: [],
+    }
+  ],
+  activeWalletId: 0,
   card: { id: 0, balance: 0 },
   status: {
     fetchAccountData: 'idle',

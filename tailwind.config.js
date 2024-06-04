@@ -11,6 +11,8 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
+      black: 'rgb(0, 0, 0)',
+      blackHover: 'rgb(34, 34, 34)',
       white: "rgb(255, 255, 255)",
       gray: {
         "20": "rgb(226, 226, 232)",
@@ -84,4 +86,5 @@ module.exports = {
   darkMode: "selector",
   plugins: [nextui()],
 }
+
 
